@@ -18,6 +18,7 @@ int main(int argc, char *argv[])
 
     qmlRegisterType<FrameFilter>("qmlvideofilter", 1, 0, "FrameFilter" );
     qmlRegisterType<AnalyzeResult>("qmlvideofilter", 1, 0, "AnalyzeResult");
+    //qmlRegisterType<ROICanvas>("qmlroicanvas", 1, 0, "ROICanvas" );
 
     //engine.load(QUrl(QStringLiteral("qrc:/main.qml")));
 

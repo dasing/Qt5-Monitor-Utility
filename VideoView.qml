@@ -1,18 +1,27 @@
 import QtQuick 2.0
 import QtMultimedia 5.5
 import qmlvideofilter 1.0
+//import qmlroicanvas 1.0
 
 Rectangle {
 
     property alias filter: filter
 
-    Divider{
-        id: divider
-        visible: true
-        z: 1.0
-        //onValueChanged: updateDivider()
+    ROICanvas{
+
+        id: roicanvas
+
+
 
     }
+
+//    Divider{
+//        id: divider
+//        visible: true
+//        z: 1.0
+//        //onValueChanged: updateDivider()
+
+//    }
 
 
     FrameFilter{

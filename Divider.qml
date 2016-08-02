@@ -47,31 +47,5 @@ Rectangle {
         onValueChanged: topSlider.value = bottomSlider.value
     }
 
-//    Curtain{
-//        id: leftSlider
-//        increment: 0.0
-//        anchors{
-//            top: parent.top
-//            bottom: parent.bottom
-//            left: parent.left
-//            leftMargin: (gripSize/2) +5
-//        }
-
-//        onValueChanged: rightSlider.value = leftSlider.value
-//    }
-
-//    Curtain{
-//        id: rightSlider
-//        increment: 0.0
-//        anchors{
-//            top: parent.top
-//            bottom: parent.bottom
-//            right: parent.right
-//            rightMargin: (gripSize/2) +5
-//        }
-
-//        onValueChanged: leftSlider.value = rightSlider.value
-//    }
-
 
 }
