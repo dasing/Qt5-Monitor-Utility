@@ -1,0 +1,61 @@
+import QtQuick 2.0
+
+Item {
+    id: root
+    width: 1300
+    height: 720
+
+    VideoView{
+
+        id: videoview
+        anchors.top: parent.top
+        anchors.topMargin: 50
+        //anchors.bottom: parent.bottom
+        anchors.left: parent.left
+        anchors.leftMargin: 50
+        //anchors.right: chartspace.left
+        //anchors.rightMargin: 0
+
+        width: 640
+        height: 480
+
+        filter.onFinished: {
+            //console.log("finiish and the value is " + res.brightness  )
+            //console.log("brihgtness2 = " + res.brightness2 )
+            chartspace.brightnessValue = res.brightness
+            chartspace.brightnessValue2 = res.brightness2
+        }
+
+    }
+
+    ChartSpace{
+
+        id: chartspace
+        anchors.top: parent.top
+        anchors.bottom: parent.bottom
+        anchors.right: parent.right
+        anchors.left: videoview.right
+        anchors.leftMargin: 50
+
+    }
+
+    ROIControlSpace{
+
+        id: roiControlSpace
+        anchors.top: videoview.bottom
+        anchors.topMargin: 5
+        anchors.left: parent.left
+
+        //signal changeRange()
+
+        roiButton.onClicked: {
+            console.log("clicked ROI")
+            videoview.filter.x_start = 1
+//            filter.x_end = 1
+//            filter.y_start = 1
+//            filter.y_end = 1
+        }
+
+    }
+
+}

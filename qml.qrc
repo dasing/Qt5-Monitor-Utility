@@ -1,0 +1,11 @@
+<RCC>
+    <qresource prefix="/">
+        <file>main.qml</file>
+        <file>VideoView.qml</file>
+        <file>ChartSpace.qml</file>
+        <file>ROIControlSpace.qml</file>
+        <file>Slider_handle.png</file>
+        <file>Divider.qml</file>
+        <file>Curtain.qml</file>
+    </qresource>
+</RCC>
