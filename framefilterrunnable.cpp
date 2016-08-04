@@ -38,6 +38,17 @@ FrameFilterRunnable::FrameFilterRunnable( FrameFilter* filter ) : QVideoFilterRu
 
 QVideoFrame FrameFilterRunnable::run( QVideoFrame *input, const QVideoSurfaceFormat &surfaceFormat, RunFlags flags ){
 
+    //ROI
+    if( m_filter->updateFlag() ){
+
+        printf("framefilterrunnable should update selectionList\n"); //printf many lines, should I set lock?
+        //upateSelectionList( newSelectionList );
+        //m_filter->setUpdateFlag(0);
+
+        //printf("in c++, updateFlag = %d\n", m_filter->updateFlag() );
+
+    }
+
     AnalyzeResult *result = new AnalyzeResult();
     //convert image to suitable cv type
     if( input->isValid() ){

@@ -15,6 +15,7 @@ public:
     QQmlListProperty<SelectionArea> areaList();
     SelectionArea* area(int i);
     Q_INVOKABLE void listAllArea();
+    Q_INVOKABLE void addSelectionArea( int idx, int x, int y, int width, int height );
 
 private:
     QList<SelectionArea*> m_areaList;

@@ -10,8 +10,15 @@ Rectangle {
     ROICanvas{
 
         id: roicanvas
+        mouseArea.onReleased: {
+            console.log("mouseArea onReleased in videioView.qml")
+            filter.updateFlag = 1
 
+        }
 
+        mouseArea.onPositionChanged: {
+            console.log("updateFlag = " + filter.updateFlag )
+        }
 
     }
 
@@ -27,16 +34,30 @@ Rectangle {
     FrameFilter{
 
         id:filter
+
+
         /*range parameter*/
         property int x_start: -1
         property int x_end: -1
         property int y_start: -1
         property int y_end: -1
+        property int updateFlag : 0 // 1 means has new thing to update, 0 means nothing to update
 
         onX_startChanged: {
             console.log("x_start change successfully to " + x_start );
             filter.setX_start(x_start);
             console.log("camera resolrtion = " + camera.viewfinder.resolution );
+
+        }
+
+        onUpdateFlagChanged: {
+            console.log("uddate flag change")
+
+            if( updateFlag == 1 ){
+                //filter.getNewInformation()
+                updateFlag = 0
+            }
+
 
         }
 
@@ -57,11 +78,13 @@ Rectangle {
 
     VideoOutput{
 
-
         anchors.fill: parent
         source: camera
         filters: [ filter ]
+
     }
+
+
 
 
 }

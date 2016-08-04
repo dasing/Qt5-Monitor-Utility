@@ -8,8 +8,13 @@ Rectangle {
     anchors.fill: parent
     color: "transparent"
 
+
+    property alias roidrawcanvas: roidrawcanvas
+    property alias arealist: arealist
+    property alias mouseArea: mouseArea
+
     Canvas{
-        id: canvas
+        id: roidrawcanvas
         anchors.fill: parent
 
         property real x0
@@ -26,10 +31,11 @@ Rectangle {
             ctx.strokeStyle = "red"
             ctx.strokeRect(x0, y0, x1-x0, y1-y0 )
 
-            //add new rectangle to list
-
-            arealist.listAllArea();
-
+            //add new rectangle to list, rectCount should > 0 because when the canvas is initialized, the program will execute here
+            if( rectCount > 0 ){
+                arealist.addSelectionArea( rectCount, x0, y0, x1-x0+1, y1-y0+1 )
+                arealist.listAllArea()
+            }
 
               /*TO DO: implementation of temporary rectangle*/
 //            if( mouseArea.pressed ){
@@ -47,8 +53,8 @@ Rectangle {
 
                 console.log("trigger pressed event");
                 console.log("press pos: x = " + mouse.x + " y = " + mouse.y )
-                canvas.x0 = mouse.x
-                canvas.y0 = mouse.y
+                roidrawcanvas.x0 = mouse.x
+                roidrawcanvas.y0 = mouse.y
                 //canvas.requestPaint()
 
             }
@@ -62,12 +68,13 @@ Rectangle {
 
                 console.log("trigger release event");
                 console.log("release pos: x = " + mouse.x + " y = " + mouse.y )
-                canvas.x1 = mouse.x
-                canvas.y1 = mouse.y
+                roidrawcanvas.x1 = mouse.x
+                roidrawcanvas.y1 = mouse.y
 
-                canvas.rectCount = canvas.rectCount+1
-                console.log("rectCount = " + canvas.rectCount )
-                canvas.requestPaint()
+                roidrawcanvas.rectCount = roidrawcanvas.rectCount+1
+                console.log("rectCount = " + roidrawcanvas.rectCount )
+                roidrawcanvas.requestPaint()
+
 
             }
 
@@ -78,14 +85,7 @@ Rectangle {
 
     SelectionAreaList{
         id: arealist
-        //areaList:[
-//            SelectionArea{ index: "0"
-//                           x: "1"
-//                           y: "1"
-//                           width: "1"
-//                           height: "1"
-//            }
-        //]
+
     }
 
 }

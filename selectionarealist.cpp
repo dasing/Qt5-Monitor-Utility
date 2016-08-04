@@ -28,3 +28,11 @@ void SelectionAreaList::listAllArea(){
 
     fflush(stdout);
 }
+
+void SelectionAreaList::addSelectionArea( int idx, int x, int y, int width, int height ){
+
+    SelectionArea* newArea = new SelectionArea;
+    newArea->setSelectionArea( idx, x, y, width, height );
+
+    m_areaList.append( newArea );
+}

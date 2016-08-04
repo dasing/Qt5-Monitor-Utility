@@ -8,5 +8,6 @@ FrameFilter::FrameFilter(){
 
 
 QVideoFilterRunnable* FrameFilter::createFilterRunnable(){
+
     return new FrameFilterRunnable(this);
 }
