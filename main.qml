@@ -50,11 +50,14 @@ Item {
 
         roiButton.onClicked: {
             console.log("clicked ROI")
-            videoview.filter.x_start = 1
-//            filter.x_end = 1
-//            filter.y_start = 1
-//            filter.y_end = 1
+
+            rectangleROI.visible = true
+            gridviewROI.visible = true
+            reset.visible = true
+            quit.visible = true
+
         }
+
 
     }
 

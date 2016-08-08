@@ -26,6 +26,8 @@ public:
     Q_INVOKABLE void setUpdateFlag( int newValue ) { m_updateFlag = newValue; }
     Q_INVOKABLE void listRectList();
     Q_INVOKABLE void addRect( QString newString );
+
+    QList<SelectionArea*> arealist;
 signals:
     void finished(QObject *res );
 
@@ -33,7 +35,6 @@ private:
 
     int m_xStart;
     int m_updateFlag;
-    QList<SelectionArea*> arealist;
     QList<QString> m_rectList; //Question : how to free QString's memory?
 
 };

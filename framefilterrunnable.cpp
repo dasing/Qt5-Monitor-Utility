@@ -22,14 +22,14 @@ FrameFilterRunnable::FrameFilterRunnable( FrameFilter* filter ) : QVideoFilterRu
 QVideoFrame FrameFilterRunnable::run( QVideoFrame *input, const QVideoSurfaceFormat &surfaceFormat, RunFlags flags ){
 
     //ROI
-    if( m_filter->updateFlag() ){
+    if( m_filter->arealist.size() != 0 ){
 
-        //printf("framefilterrunnable should update selectionList\n"); //printf many lines, should I set lock?
-        //upateSelectionList( newSelectionList );
-        //m_filter->setUpdateFlag(0);
+        int size = m_filter->arealist.size();
+        for( int i=0 ; i<size; i++ ){
+            //DO ROI
+        }
 
-        //printf("in c++, updateFlag = %d\n", m_filter->updateFlag() );
-        //m_filter->updateAreaList();
+    }else{
 
     }
 

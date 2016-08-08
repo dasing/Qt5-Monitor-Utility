@@ -20,7 +20,7 @@ void FrameFilter::updateAreaList( QList<SelectionArea*> newList ){
     printf("in updateAreaList");
 
     printf("updatelist Size = %d\n", newList.size() );
-    arealist.empty();
+    arealist.clear();
     for( int i=0; i<newList.size(); i++ ){
         arealist.append( newList.at(i) );
     }
@@ -37,7 +37,6 @@ void FrameFilter::listRectList(){
         qDebug() << m_rectList.at(i);
     }
 
-    fflush(stdout);
 }
 
 void FrameFilter::addRect( QString newString ){
