@@ -17,35 +17,19 @@ FrameFilterRunnable::FrameFilterRunnable( FrameFilter* filter ) : QVideoFilterRu
     m_filter = filter;
 
 
-
 }
-
-//void setRange( int x1, int x2, int y1, int y2 ){
-
-//    if( x1 != -1 )
-//        x_start = x1;
-
-//    if( x2 != -1 )
-//        x_end = x2;
-
-//    if( y1 != -1 )
-//        y_start = y1;
-
-//    if( y2 != -1 )
-//        y_end = y2;
-
-//}
 
 QVideoFrame FrameFilterRunnable::run( QVideoFrame *input, const QVideoSurfaceFormat &surfaceFormat, RunFlags flags ){
 
     //ROI
     if( m_filter->updateFlag() ){
 
-        printf("framefilterrunnable should update selectionList\n"); //printf many lines, should I set lock?
+        //printf("framefilterrunnable should update selectionList\n"); //printf many lines, should I set lock?
         //upateSelectionList( newSelectionList );
         //m_filter->setUpdateFlag(0);
 
         //printf("in c++, updateFlag = %d\n", m_filter->updateFlag() );
+        //m_filter->updateAreaList();
 
     }
 
@@ -93,6 +77,5 @@ QVideoFrame FrameFilterRunnable::run( QVideoFrame *input, const QVideoSurfaceFor
     }
 
     return *input;
-
 
 }

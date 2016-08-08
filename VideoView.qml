@@ -5,36 +5,24 @@ import qmlvideofilter 1.0
 
 Rectangle {
 
+    id: window
     property alias filter: filter
 
     ROICanvas{
 
         id: roicanvas
-        mouseArea.onReleased: {
-            console.log("mouseArea onReleased in videioView.qml")
+
+        onRectsListSizeChanged: {
             filter.updateFlag = 1
-
-        }
-
-        mouseArea.onPositionChanged: {
-            console.log("updateFlag = " + filter.updateFlag )
         }
 
     }
 
-//    Divider{
-//        id: divider
-//        visible: true
-//        z: 1.0
-//        //onValueChanged: updateDivider()
-
-//    }
-
 
     FrameFilter{
 
-        id:filter
 
+        id:filter
 
         /*range parameter*/
         property int x_start: -1
@@ -51,11 +39,24 @@ Rectangle {
         }
 
         onUpdateFlagChanged: {
+
             console.log("uddate flag change")
 
             if( updateFlag == 1 ){
-                //filter.getNewInformation()
+
+                console.log("update list in frame filter")
+                //filter.updateAreaList( roicanvas.arealist.areaList )
+                //console.log("in update flag change, areaList size = " + roicanvas.arealist.areaList.count() )
+                //console.log( roicanvas.arealist.areaList )
+
+
+
+                rectList = roicanvas.rects
+                //filter.addRect("222")
+                filter.listRectList()
+
                 updateFlag = 0
+
             }
 
 
@@ -71,10 +72,7 @@ Rectangle {
         captureMode: Camera.CaptureVideo
         viewfinder.resolution: Qt.size( 640, 480 );
 
-
     }
-
-
 
     VideoOutput{
 

@@ -11,6 +11,7 @@ ColumnLayout {
     property alias brightnessValue: chartView.brightnessValue
     property alias brightnessValue2: chartView2.brightnessValue2
 
+
 //    Rectangle{
 //        id: rect1
 //        anchors.top: parent.top
@@ -27,6 +28,7 @@ ColumnLayout {
         height: 300
         animationOptions: ChartView.AllAnimations
         theme: ChartView.ChartThemeBlueIcy
+
 
         property double brightnessValue
         onBrightnessValueChanged: {

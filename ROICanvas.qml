@@ -8,20 +8,24 @@ Rectangle {
     anchors.fill: parent
     color: "transparent"
 
-
     property alias roidrawcanvas: roidrawcanvas
     property alias arealist: arealist
     property alias mouseArea: mouseArea
+    property alias rects: roidrawcanvas.rects
+    property alias rectsListSize: roidrawcanvas.rectsListSize
+
 
     Canvas{
         id: roidrawcanvas
         anchors.fill: parent
 
-        property real x0
-        property real x1
-        property real y0
-        property real y1
+        property int x0
+        property int x1
+        property int y0
+        property int y1
         property int rectCount: 0
+        property var rects:[ ]
+        property int rectsListSize: 0
 
         onPaint: {
             console.log("canvas is on paint");
@@ -33,9 +37,24 @@ Rectangle {
 
             //add new rectangle to list, rectCount should > 0 because when the canvas is initialized, the program will execute here
             if( rectCount > 0 ){
-                arealist.addSelectionArea( rectCount, x0, y0, x1-x0+1, y1-y0+1 )
-                arealist.listAllArea()
+
+                var width = x1-x0+1
+                var height = y1-y0+1
+                var newRect = rectCount + ";" + x0 + ";" + y0 + ";" + width + ";" + height
+
+
+                console.log(newRect)
+                rects.push(newRect )
+
+                listAllRects()
+                //arealist.addSelectionArea( rectCount, x0, y0, x1-x0+1, y1-y0+1 )
+                //arealist.listAllArea(0)
+                //console.log(arealist.areaList[rectCount-1].index)
+
+                //copyAreaList()
             }
+
+            rectsListSize = rectCount
 
               /*TO DO: implementation of temporary rectangle*/
 //            if( mouseArea.pressed ){
@@ -85,6 +104,43 @@ Rectangle {
 
     SelectionAreaList{
         id: arealist
+//        areaList: [
+//            SelectionArea{ index: 0
+//                            x: 1
+//                            y: 1
+//                            width: 1
+//                            height: 1
+//            }
+//        ]
+    }
+
+    SelectionAreaList{
+        id: arealist2
+    }
+
+    function listAllRects(){
+
+        var size = roidrawcanvas.rects.length
+
+        console.log("in listAllRects")
+
+        for( var i=0; i<size; i++ ){
+            console.log( roidrawcanvas.rects[i] )
+        }
+    }
+
+    function copyAreaList(){
+
+        var size = arealist.count()
+        var size2 = arealist2.count()
+
+        for( var i=0; i<size; i++ ){
+            arealist2.append( arealist.area(i) )
+        }
+
+        arealist2.listAllArea(2)
+
+        //arealist2.removeAt()
 
     }
 

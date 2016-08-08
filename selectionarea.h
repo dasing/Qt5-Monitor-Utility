@@ -6,11 +6,11 @@
 class SelectionArea : public QObject
 {
     Q_OBJECT
-    Q_PROPERTY( int index READ index )
-    Q_PROPERTY( int x READ x )
-    Q_PROPERTY( int y READ y )
-    Q_PROPERTY( int width READ width )
-    Q_PROPERTY( int height READ height )
+    Q_PROPERTY( int index READ index WRITE setIndex )
+    Q_PROPERTY( int x READ x WRITE setX )
+    Q_PROPERTY( int y READ y WRITE setY )
+    Q_PROPERTY( int width READ width WRITE setWidth )
+    Q_PROPERTY( int height READ height WRITE setHeight )
 
 public:
     SelectionArea();
@@ -22,8 +22,13 @@ public:
 
     //int shape;
     void setSelectionArea( int index, int x, int y, int width, int height );
+    void setIndex( int i );
+    void setX( int x );
+    void setY( int y );
+    void setWidth( int w );
+    void setHeight( int h );
 
-private:
+
     int m_index;
     int m_x;
     int m_y;
