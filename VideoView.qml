@@ -12,7 +12,6 @@ Rectangle {
     ROICanvas{
 
         id: roicanvas
-
         onRectsListSizeChanged: {
             filter.updateFlag = 1
         }

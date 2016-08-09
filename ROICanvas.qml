@@ -13,12 +13,12 @@ Rectangle {
     property alias roidrawcanvas: roidrawcanvas
     property alias gridviewcanvas: gridviewcanvas
     property alias mouseArea: mouseArea
-    //property alias rects: rects
-    //property alias rectsListSize: rectsListSize
+
 
     property int rectCount: 0
     property var rects:[ ]
     property int rectsListSize: 0
+    signal addNewRect( var rect )
 
 
     Canvas{
@@ -49,11 +49,9 @@ Rectangle {
 
                 console.log(newRect)
                 window.rects.push(newRect )
+                addNewRect(newRect) //send signal to ChartInfo
 
                 listAllRects()
-                //arealist.addSelectionArea( rectCount, x0, y0, x1-x0+1, y1-y0+1 )
-                //arealist.listAllArea(0)
-                //console.log(arealist.areaList[rectCount-1].index)
 
 
             }
@@ -72,15 +70,12 @@ Rectangle {
             id: mouseArea
             anchors.fill: parent
 
-
-
             onPressed: {
 
                 console.log("trigger pressed event");
                 console.log("press pos: x = " + mouse.x + " y = " + mouse.y )
                 roidrawcanvas.x0 = mouse.x
                 roidrawcanvas.y0 = mouse.y
-                //canvas.requestPaint()
 
             }
 
@@ -165,6 +160,7 @@ Rectangle {
 
         }
 
+
         MouseArea{
 
             id: gridviewMouseArea
@@ -180,6 +176,7 @@ Rectangle {
                 var rectIdx = y_idx*gridviewcanvas.divWidth + x_idx
                 var newRect = window.rectCount + ";" + x_idx * Math.floor(gridviewcanvas.diffWidth ) + ";" + y_idx * Math.floor(gridviewcanvas.diffHeight ) + ";" + Math.ceil( gridviewcanvas.diffWidth)  + ";" +  Math.ceil( gridviewcanvas.diffHeight);
                 window.rects.push(newRect)
+                addNewRect(newRect) //send signal to ChartInfo
 
                 console.log("press pos: x = " + mouse.x + " y = " + mouse.y + " idx = " + rectIdx )
                 console.log(newRect)
@@ -193,18 +190,8 @@ Rectangle {
                 window.rectsListSize = window.rectCount
 
             }
-
-
         }
-
-
     }
-
-//    SelectionAreaList{
-//        id: arealist
-
-//    }
-
 
     function listAllRects(){
         var size = window.rects.length

@@ -28,10 +28,25 @@ Item {
 
     }
 
+    ChartInfo{
+
+        id: chartInfo
+        anchors.top: parent.top
+        anchors.topMargin: 50
+        anchors.left: videoview.right
+        anchors.leftMargin: 50
+        anchors.right: parent.right
+        anchors.rightMargin: 50
+        visible: false
+        canvas: videoview.roicanvas
+
+
+    }
+
     ChartSpace{
 
         id: chartspace
-        anchors.top: parent.top
+        anchors.top: chartInfo.visible ? chartInfo.bottom : parent.top
         anchors.bottom: parent.bottom
         anchors.right: parent.right
         anchors.left: videoview.right
@@ -57,6 +72,7 @@ Item {
             gridviewROI.visible = true
             reset.visible = true
             quit.visible = true
+            chartInfo.visible = true
 
         }
 

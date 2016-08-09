@@ -8,5 +8,7 @@
         <file>Divider.qml</file>
         <file>Curtain.qml</file>
         <file>ROICanvas.qml</file>
+        <file>ChartInfo.qml</file>
+        <file>componentCreation.js</file>
     </qresource>
 </RCC>
