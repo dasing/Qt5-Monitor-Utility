@@ -50,8 +50,6 @@ Rectangle {
                 //console.log("in update flag change, areaList size = " + roicanvas.arealist.areaList.count() )
                 //console.log( roicanvas.arealist.areaList )
 
-
-
                 rectList = roicanvas.rects
                 //filter.addRect("222")
                 filter.listRectList()
