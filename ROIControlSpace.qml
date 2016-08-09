@@ -10,12 +10,17 @@ RowLayout {
 
     id: roiControl
 
+    //alias
     property alias roiControl: roiControl
     property alias roiButton: roiButton
     property alias rectangleROI: rectangleROI
     property alias gridviewROI: gridviewROI
     property alias reset: reset
     property alias quit: quit
+
+    //var
+    property var drawcanvas: null
+    property var gridviewcanvas: null
 
     Button{
 
@@ -61,6 +66,10 @@ RowLayout {
                 }
          }
 
+        onClicked: {
+            drawcanvas.enabled = true
+        }
+
     }
 
     Button{
@@ -86,6 +95,7 @@ RowLayout {
 
          onClicked:{
              gridviewroiControlSpace.visible = true
+             gridviewcanvas.enabled = true
 
          }
 
@@ -112,11 +122,12 @@ RowLayout {
             anchors.top: parent.top
             anchors.topMargin: 10
             anchors.left: widthText.right
+            placeholderText: "2-20"
         }
 
         Text{
             id: heightText
-            text: "Height: "
+            text: "Height:"
             anchors.top: divWidth.bottom
             anchors.topMargin: 10
             anchors.left: parent.left
@@ -127,6 +138,23 @@ RowLayout {
             anchors.top: divWidth.bottom
             anchors.topMargin: 10
             anchors.left: heightText.right
+            placeholderText: "2-20"
+        }
+
+        Button{
+            id: confirmbutton
+            anchors.left: divHeight.right
+            anchors.leftMargin: 10
+            anchors.top: divHeight.top
+            text: "OK"
+
+            onClicked: {
+                var width = divWidth.text
+                var height = divHeight.text
+                gridviewcanvas.divWidth = width
+                gridviewcanvas.divHeight = height
+                console.log("width = " + width +" height = " + height )
+            }
         }
 
     }

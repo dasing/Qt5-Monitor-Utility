@@ -8,8 +8,9 @@ Rectangle {
     anchors.fill: parent
     color: "transparent"
 
+
     property alias roidrawcanvas: roidrawcanvas
-    property alias arealist: arealist
+    property alias gridviewcanvas: gridviewcanvas
     property alias mouseArea: mouseArea
     property alias rects: roidrawcanvas.rects
     property alias rectsListSize: roidrawcanvas.rectsListSize
@@ -18,6 +19,7 @@ Rectangle {
     Canvas{
         id: roidrawcanvas
         anchors.fill: parent
+        enabled: false
 
         property int x0
         property int x1
@@ -51,7 +53,7 @@ Rectangle {
                 //arealist.listAllArea(0)
                 //console.log(arealist.areaList[rectCount-1].index)
 
-                //copyAreaList()
+
             }
 
             rectsListSize = rectCount
@@ -68,6 +70,8 @@ Rectangle {
             id: mouseArea
             anchors.fill: parent
 
+
+
             onPressed: {
 
                 console.log("trigger pressed event");
@@ -76,11 +80,6 @@ Rectangle {
                 roidrawcanvas.y0 = mouse.y
                 //canvas.requestPaint()
 
-            }
-
-
-            onPositionChanged: {
-                //console.log("trigger position changed event");
             }
 
             onReleased: {
@@ -93,55 +92,116 @@ Rectangle {
                 roidrawcanvas.rectCount = roidrawcanvas.rectCount+1
                 console.log("rectCount = " + roidrawcanvas.rectCount )
                 roidrawcanvas.requestPaint()
+            }
+        }
+    }
+
+    Canvas{
+
+        id: gridviewcanvas
+        anchors.fill: parent
+        enabled: false
+
+        property int x0
+        property int x1
+        property int y0
+        property int y1
+
+        property int divWidth: 0
+        property int divHeight: 0
+
+
+        onDivHeightChanged: {
+            //console.log("divWidth changed to " + divWidth )
+            //console.log("divHeight changed to " + divHeight )
+
+            gridviewcanvas.requestPaint()
+        }
+
+        onPaint: {
+
+            console.log("canvas2 is on paint");
+            if( divHeight > 0 && divHeight > 0 ){
+                console.log("start to draw line")
+                console.log("canvas size = " + gridviewcanvas.canvasSize )
+
+                var ctx = getContext('2d')
+                ctx.fillStyle = Qt.rgba(128, 128, 128, 0.8 )
+
+                //draw vertical line
+                var x_pos = 0
+                var y_pos = 0
+                var diffWidth = gridviewcanvas.canvasSize.width/divWidth
+                var diffHeight = gridviewcanvas.canvasSize.height/divHeight
+
+
+               //console.log( "diffWidth = " + diffWidth )
+                for( var i=0; i<divWidth-1; i++ ){
+
+                    x_pos += diffWidth
+                    //console.log( "x_pos = " + x_pos )
+                    ctx.fillRect( x_pos, 0, 1, gridviewcanvas.canvasSize.height )
+
+                }
+
+                //draw horizontal line
+                for( i=0; i<divHeight-1; i++ ){
+
+                    y_pos += diffHeight
+                    //console.log( "y_pos = " + y_pos )
+                    ctx.fillRect( 0, y_pos, gridviewcanvas.canvasSize.width, 1 )
+
+                }
+
+
 
 
             }
 
+
+
+        }
+
+        MouseArea{
+
+            id: gridviewMouseArea
+            anchors.fill: parent
+
+//            onPressed: {
+
+//                console.log("trigger pressed event");
+//                console.log("press pos: x = " + mouse.x + " y = " + mouse.y )
+//                gridviewcanvas.x0 = mouse.x
+//                gridviewcanvas.y0 = mouse.y
+//                //canvas.requestPaint()
+
+//            }
+
+//            onReleased: {
+
+//                gridviewcanvas.x1 = mouse.x
+//                gridviewcanvas.y1 = mouse.y
+
+//                gridviewcanvas.requestPaint()
+//            }
         }
 
 
     }
 
-    SelectionAreaList{
-        id: arealist
-//        areaList: [
-//            SelectionArea{ index: 0
-//                            x: 1
-//                            y: 1
-//                            width: 1
-//                            height: 1
-//            }
-//        ]
-    }
+//    SelectionAreaList{
+//        id: arealist
 
-    SelectionAreaList{
-        id: arealist2
-    }
+//    }
+
 
     function listAllRects(){
-
         var size = roidrawcanvas.rects.length
-
         console.log("in listAllRects")
-
         for( var i=0; i<size; i++ ){
             console.log( roidrawcanvas.rects[i] )
         }
     }
 
-    function copyAreaList(){
-
-        var size = arealist.count()
-        var size2 = arealist2.count()
-
-        for( var i=0; i<size; i++ ){
-            arealist2.append( arealist.area(i) )
-        }
-
-        arealist2.listAllArea(2)
-
-        //arealist2.removeAt()
-
-    }
 
 }

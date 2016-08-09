@@ -80,4 +80,6 @@ void FrameFilter::showAreaList(){
 
         printf("index = %d, x = %d, y = %d, width = %d, height = %d\n", arealist.at(i)->index(), arealist.at(i)->x(), arealist.at(i)->y(), arealist.at(i)->width(), arealist.at(i)->height() );
     }
+
+    fflush(stdout);
 }

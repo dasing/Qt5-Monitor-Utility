@@ -45,6 +45,8 @@ Item {
         anchors.top: videoview.bottom
         anchors.topMargin: 5
         anchors.left: parent.left
+        drawcanvas: videoview.roicanvas.roidrawcanvas
+        gridviewcanvas: videoview.roicanvas.gridviewcanvas
 
         //signal changeRange()
 

@@ -7,6 +7,7 @@ Rectangle {
 
     id: window
     property alias filter: filter
+    property alias roicanvas: roicanvas
 
     ROICanvas{
 
