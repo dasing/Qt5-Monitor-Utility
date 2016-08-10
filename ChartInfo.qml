@@ -2,8 +2,6 @@ import QtQuick 2.0
 import QtQuick.Layouts 1.0
 import "componentCreation.js" as ComponentCreateScript
 
-
-
 Rectangle {
 
     id: chartRect
@@ -12,6 +10,8 @@ Rectangle {
     color: "white"
     property var canvas: null
     property int activeLineSeries: 0
+    property int deletedIndex: -1
+    property int itemHeight: 30
 
     Text{
         id: title
@@ -31,9 +31,19 @@ Rectangle {
 
             chartRect.activeLineSeries += 1
             ComponentCreateScript.createLineSerisInfos( chartRect.activeLineSeries )
-            chartInfo.height += 30
+            chartInfo.height += itemHeight
 
         })
+    }
+
+    onChildrenChanged: {
+        //console.log("children changed")
+
+        if( deletedIndex !== -1 ){
+            ComponentCreateScript.updateIndex( deletedIndex )
+            ComponentCreateScript.updateItemPosition( deletedIndex )
+            chartInfo.height -= itemHeight
+        }
     }
 
 }
