@@ -50,7 +50,7 @@ void FrameFilter::setRectList(QList<QString> newString){
    m_rectList = newString;
 
    updateAreaList();
-   showAreaList();
+   //showAreaList();
 }
 
 void FrameFilter::updateAreaList(){
@@ -62,7 +62,7 @@ void FrameFilter::updateAreaList(){
         QString str = m_rectList.at(i);
         QStringList list = str.split(';', QString::SkipEmptyParts );
 
-        qDebug() << "index = " << list[0] << " x = " << list[1] << " y = " << list[2] << " width = " << list[3] << " height = " << list[4];
+        //qDebug() << "index = " << list[0] << " x = " << list[1] << " y = " << list[2] << " width = " << list[3] << " height = " << list[4];
 
         SelectionArea* newArea = new SelectionArea;
         newArea->setSelectionArea( list[0].toInt(), list[1].toInt(), list[2].toInt(), list[3].toInt(), list[4].toInt() );

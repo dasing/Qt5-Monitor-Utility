@@ -10,5 +10,10 @@
         <file>ROICanvas.qml</file>
         <file>ChartInfo.qml</file>
         <file>componentCreation.js</file>
+        <file>LineSeriesInfo.qml</file>
+        <file>error.png</file>
+        <file>dark-eye.png</file>
+        <file>gray-eye.png</file>
+        <file>cancel.png</file>
     </qresource>
 </RCC>

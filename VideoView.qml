@@ -57,7 +57,6 @@ Rectangle {
 
             }
 
-
         }
 
         /*onFinished() is in main.qml*/

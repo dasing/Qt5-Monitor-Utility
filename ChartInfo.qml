@@ -7,12 +7,15 @@ import "componentCreation.js" as ComponentCreateScript
 Rectangle {
 
     id: chartRect
-    height: 100
+    height: 70
     border.color: "black"
-    color: "#b3f4f4"
+    color: "white"
     property var canvas: null
+    property int activeLineSeries: 0
 
     Text{
+        id: title
+        objectName: "text"
         anchors.top: parent.top
         anchors.topMargin: 10
         anchors.left: parent.left
@@ -26,22 +29,12 @@ Rectangle {
             console.log("in ChartInfo")
             console.log("recvItem =" + item )
 
-            var component
-            var button
-            component = Qt.createComponent("Button.qml")
-            button = component.createObject( chartRect, { "x" : 50, "y": 50 } )
-            if( button !== null ){
-                console.log("create object successfully")
-            }
+            chartRect.activeLineSeries += 1
+            ComponentCreateScript.createLineSerisInfos( chartRect.activeLineSeries )
+            chartInfo.height += 30
 
-            //ComponentCreateScript.createLineSerisInfos()
         })
     }
-
-
-
-
-
 
 }
 
