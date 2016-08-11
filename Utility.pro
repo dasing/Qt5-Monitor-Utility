@@ -26,23 +26,23 @@ HEADERS += \
     selectionarea.h \
     selectionarealist.h
 
-win32:CONFIG(release, debug|release): LIBS += -L$$PWD/../../../usr/local/Cellar/opencv/2.4.13/lib/release/ -lopencv_core.2.4.13
-else:win32:CONFIG(debug, debug|release): LIBS += -L$$PWD/../../../usr/local/Cellar/opencv/2.4.13/lib/debug/ -lopencv_core.2.4.13
-else:unix: LIBS += -L$$PWD/../../../usr/local/Cellar/opencv/2.4.13/lib/ -lopencv_core.2.4.13
+#win32:CONFIG(release, debug|release): LIBS += -L$$PWD/../../../usr/local/Cellar/opencv/2.4.13/lib/release/ -lopencv_core.2.4.13
+#else:win32:CONFIG(debug, debug|release): LIBS += -L$$PWD/../../../usr/local/Cellar/opencv/2.4.13/lib/debug/ -lopencv_core.2.4.13
+#else:unix: LIBS += -L$$PWD/../../../usr/local/Cellar/opencv/2.4.13/lib/ -lopencv_core.2.4.13
 
-INCLUDEPATH += $$PWD/../../../usr/local/Cellar/opencv/2.4.13/include
-DEPENDPATH += $$PWD/../../../usr/local/Cellar/opencv/2.4.13/include
+#INCLUDEPATH += $$PWD/../../../usr/local/Cellar/opencv/2.4.13/include
+#DEPENDPATH += $$PWD/../../../usr/local/Cellar/opencv/2.4.13/include
 
-win32:CONFIG(release, debug|release): LIBS += -L$$PWD/../../../usr/local/Cellar/opencv/2.4.13/lib/release/ -lopencv_highgui.2.4.13
-else:win32:CONFIG(debug, debug|release): LIBS += -L$$PWD/../../../usr/local/Cellar/opencv/2.4.13/lib/debug/ -lopencv_highgui.2.4.13
-else:unix: LIBS += -L$$PWD/../../../usr/local/Cellar/opencv/2.4.13/lib/ -lopencv_highgui.2.4.13
+#win32:CONFIG(release, debug|release): LIBS += -L$$PWD/../../../usr/local/Cellar/opencv/2.4.13/lib/release/ -lopencv_highgui.2.4.13
+#else:win32:CONFIG(debug, debug|release): LIBS += -L$$PWD/../../../usr/local/Cellar/opencv/2.4.13/lib/debug/ -lopencv_highgui.2.4.13
+#else:unix: LIBS += -L$$PWD/../../../usr/local/Cellar/opencv/2.4.13/lib/ -lopencv_highgui.2.4.13
 
-INCLUDEPATH += $$PWD/../../../usr/local/Cellar/opencv/2.4.13/include
-DEPENDPATH += $$PWD/../../../usr/local/Cellar/opencv/2.4.13/include
+#INCLUDEPATH += $$PWD/../../../usr/local/Cellar/opencv/2.4.13/include
+#DEPENDPATH += $$PWD/../../../usr/local/Cellar/opencv/2.4.13/include
 
-win32:CONFIG(release, debug|release): LIBS += -L$$PWD/../../../usr/local/Cellar/opencv/2.4.13/lib/release/ -lopencv_imgproc.2.4.13
-else:win32:CONFIG(debug, debug|release): LIBS += -L$$PWD/../../../usr/local/Cellar/opencv/2.4.13/lib/debug/ -lopencv_imgproc.2.4.13
-else:unix: LIBS += -L$$PWD/../../../usr/local/Cellar/opencv/2.4.13/lib/ -lopencv_imgproc.2.4.13
+#win32:CONFIG(release, debug|release): LIBS += -L$$PWD/../../../usr/local/Cellar/opencv/2.4.13/lib/release/ -lopencv_imgproc.2.4.13
+#else:win32:CONFIG(debug, debug|release): LIBS += -L$$PWD/../../../usr/local/Cellar/opencv/2.4.13/lib/debug/ -lopencv_imgproc.2.4.13
+#else:unix: LIBS += -L$$PWD/../../../usr/local/Cellar/opencv/2.4.13/lib/ -lopencv_imgproc.2.4.13
 
-INCLUDEPATH += $$PWD/../../../usr/local/Cellar/opencv/2.4.13/include
-DEPENDPATH += $$PWD/../../../usr/local/Cellar/opencv/2.4.13/include
+#INCLUDEPATH += $$PWD/../../../usr/local/Cellar/opencv/2.4.13/include
+#DEPENDPATH += $$PWD/../../../usr/local/Cellar/opencv/2.4.13/include

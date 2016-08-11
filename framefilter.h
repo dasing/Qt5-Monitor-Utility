@@ -28,8 +28,11 @@ public:
     Q_INVOKABLE void addRect( QString newString );
 
     QList<SelectionArea*> arealist;
+
+
+
 signals:
-    void finished(QObject *res );
+    void finished( QObject *res );
 
 private:
 

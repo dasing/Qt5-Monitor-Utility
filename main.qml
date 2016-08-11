@@ -20,10 +20,13 @@ Item {
         height: 480
 
         filter.onFinished: {
+
             //console.log("finiish and the value is " + res.brightness  )
             //console.log("brihgtness2 = " + res.brightness2 )
-            chartspace.brightnessValue = res.brightness
-            chartspace.brightnessValue2 = res.brightness2
+            //chartspace.brightnessValue = res.brightness
+            //chartspace.brightnessValue2 = res.brightness2
+            chartspace.x_result = res.x_result
+            chartspace.y_result = res.y_result
         }
 
     }
@@ -51,6 +54,7 @@ Item {
         anchors.right: parent.right
         anchors.left: videoview.right
         anchors.leftMargin: 50
+
 
     }
 

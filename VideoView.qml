@@ -31,12 +31,12 @@ Rectangle {
         property int y_end: -1
         property int updateFlag : 0 // 1 means has new thing to update, 0 means nothing to update
 
-        onX_startChanged: {
-            console.log("x_start change successfully to " + x_start );
-            filter.setX_start(x_start);
-            console.log("camera resolrtion = " + camera.viewfinder.resolution );
+//        onX_startChanged: {
+//            console.log("x_start change successfully to " + x_start );
+//            filter.setX_start(x_start);
+//            console.log("camera resolrtion = " + camera.viewfinder.resolution );
 
-        }
+//        }
 
         onUpdateFlagChanged: {
 

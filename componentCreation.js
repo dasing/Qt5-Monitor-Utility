@@ -22,7 +22,7 @@ function updateIndex( deletedIndex ){
 
     var size = chartRect.children.length
     for( var i=deletedIndex; i < size; i++ ){
-        chartRect.children[i].index = i
+        chartRect.children[i].index -= 1
     }
 
     listAllChildren()

@@ -22,6 +22,7 @@ Rectangle {
 
 
     Canvas{
+
         id: roidrawcanvas
         anchors.fill: parent
         enabled: false
