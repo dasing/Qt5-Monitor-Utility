@@ -22,7 +22,10 @@ FrameFilterRunnable::FrameFilterRunnable( FrameFilter* filter ) : QVideoFilterRu
 int computeData( int min, int max ){
 
     qsrand(time(NULL));
-    return  qrand() % ((max+1) -min)  +min ;
+    int returnValue =   qrand() % ((max+1) -min)  +min ;
+    //qDebug() << "return " << returnValue;
+
+    return returnValue;
 
 
 }

@@ -8,8 +8,7 @@ ColumnLayout {
     width: 200
     height: 720
     spacing: 4
-    property alias brightnessValue: chartView.brightnessValue
-    property alias brightnessValue2: chartView2.brightnessValue2
+
     property alias x_result: chartView.x_result
     property alias y_result: chartView2.y_result
 
@@ -19,21 +18,36 @@ ColumnLayout {
         id: chartView
         width: 500
         height: 300
-        animationOptions: ChartView.AllAnimations
+        animationOptions: ChartView.SeriesAnimations
+        //legend.visible: false
         theme: ChartView.ChartThemeBlueIcy
 
         property var x_result: null
-
-        property double brightnessValue
-//        onBrightnessValueChanged: {
-//            //console.log("brightnessValueChanged to " + brightnessValue )
-//            updateSeries( series(0), brightnessValue )
-
-//        }
+        property int x_resultSize: 0
 
         onX_resultChanged: {
-            console.log("x_result changed")
+
+
             //displayElement(x_result)
+
+            var currSize = x_result === null ? -1 : x_result.length
+            //console.log("x_result changed, currSize = " + currSize )
+
+            if( currSize > 0 ){
+
+                if( currSize > 0 &&  currSize > x_resultSize ){
+                    addLineSeries( chartView , "lineSeris"+currSize , axisX, axisY )
+                    //listSeriesColor( chartView )
+                }else{
+                    //removeLineSeries()
+                }
+
+                updateChartValue( chartView, x_result )
+
+            }
+
+            x_resultSize = currSize
+
         }
 
         ValueAxis{
@@ -46,15 +60,8 @@ ColumnLayout {
         ValueAxis {
             id: axisY
             min: 0
-            max: 500
+            max: 800
         }
-
-//        LineSeries{
-//            id: birghtnessSeris1
-//            name: "brightness"
-//            axisX: axisX
-//            axisY: axisY
-//        }
 
     }
 
@@ -65,19 +72,30 @@ ColumnLayout {
         height: 300
         animationOptions: ChartView.AllAnimations
         theme: ChartView.ChartThemeBrownSand
+        //legend.visible: false
 
         property var y_result: null
-
-        property double brightnessValue2
-//        onBrightnessValue2Changed: {
-//            //console.log("brightnessValue2Changed to " + brightnessValue2 )
-//            updateSeries( series(0), brightnessValue2 )
-
-//        }
+        property int y_resultSize: 0
 
         onY_resultChanged: {
-            console.log("y_result changed")
-            //displayElement( y_result )
+
+            var currSize = y_result === null ? -1 : y_result.length
+            //console.log("y_result changed, currSize = " + currSize )
+
+            if( currSize > 0 ){
+
+                if( currSize > 0 &&  currSize > y_resultSize ){
+                    addLineSeries( chartView2 , "lineSeris"+currSize , axisX2, axisY2 )
+                    //listSeriesColor( chartView2 )
+                }else{
+                    //removeLineSeries()
+                }
+
+                updateChartValue( chartView2, y_result )
+
+            }
+
+            y_resultSize = currSize
         }
 
         ValueAxis{
@@ -92,13 +110,6 @@ ColumnLayout {
             min: 0
             max: 500
         }
-
-//        LineSeries{
-//            id: birghtnessSeris2
-//            name: "ststicPointBrightness"
-//            axisX: axisX2
-//            axisY: axisY2
-//        }
 
     }
 
@@ -134,30 +145,52 @@ ColumnLayout {
         if( pointCount < limit ){
 
             m_lineSeries.append( (pointCount+1)*10, newValue );
-            //console.log("add " + chartView.series(idx).at(pointCount ).x + " " + chartView.series(idx).at(pointCount ).y + " to lineSeries");
+            //console.log("add " + m_lineSeries.at(pointCount ).x + " " + m_lineSeries.at(pointCount ).y + " to lineSeries");
 
         }else{
 
+            var i;
+//            console.log("before replace")
+//            for( i=0; i< pointCount-1; i++ ){
+//                console.log( "x = " +  m_lineSeries.at(i).x + " ,y = " + m_lineSeries.at(i).y );
+//            }
+
             /*replace*/
             //console.log("pointCount = " + pointCount );
-            for( var i=0; i< pointCount-1; i++ ){
-
-
-    //                console.log("before replace");
-    //                console.log("old point: " +  chartView.series(idx).at(i).x + ", " +  chartView.series(idx).at(i).y );
-    //                console.log("new point: " +  chartView.series(idx).at(i+1).x + ", " +  chartView.series(idx).at(i+1).y );
-
+            for( i=0; i< pointCount-1; i++ ){
                 m_lineSeries.replace( m_lineSeries.at(i).x, m_lineSeries.at(i).y, m_lineSeries.at(i).x, m_lineSeries.at(i+1).y );
-    //                console.log("after replace");
-    //                console.log("old point: " +  chartView.series(idx).at(i).x + ", " +  chartView.series(idx).at(i).y );
-    //                console.log("new point: " +  chartView.series(idx).at(i+1).x + ", " +  chartView.series(idx).at(i+1).y );
             }
 
             /*Add new value*/
             m_lineSeries.replace( m_lineSeries.at(i).x, m_lineSeries.at(i).y, m_lineSeries.at(i).x, newValue );
 
+//            console.log("after replace")
+//            for( i=0; i< pointCount-1; i++ ){
+//                console.log( "x = " +  m_lineSeries.at(i).x + " ,y = " + m_lineSeries.at(i).y );
+//            }
+
         }
 
+    }
+
+    function updateChartValue( chart, list ){
+        var count = list.length
+        for( var i=0; i<count; i++ ){
+            updateSeries( chart.series(i), list[i] )
+        }
+    }
+
+    function addLineSeries( chart, seriesName, axis1, axis2 ){
+
+        chart.createSeries( ChartView.SeriesTypeSpline, seriesName, axis1, axis2 );
+    }
+
+    function listSeriesColor( chart ){
+
+        var seriesNumber = chart.count;
+        for( var i=0; i<seriesNumber; i++ ){
+            console.log( chart.series(i).color )
+        }
 
     }
 
