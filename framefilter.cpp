@@ -83,3 +83,11 @@ void FrameFilter::showAreaList(){
 
     fflush(stdout);
 }
+
+void FrameFilter::removeData(int index){
+
+    if( index > 0 ){
+        arealist.removeAt(index-1);
+    }
+
+}

@@ -26,6 +26,7 @@ public:
     Q_INVOKABLE void setUpdateFlag( int newValue ) { m_updateFlag = newValue; }
     Q_INVOKABLE void listRectList();
     Q_INVOKABLE void addRect( QString newString );
+    Q_INVOKABLE void removeData( int index );
 
     QList<SelectionArea*> arealist;
 

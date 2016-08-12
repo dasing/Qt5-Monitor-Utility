@@ -28,38 +28,64 @@ Rectangle {
         property int x1
         property int y0
         property int y1
+        property int paraOnPaint: 0
 
 
         onPaint: {
             console.log("canvas is on paint");
 
             //draw rectangle to canvas
-            var ctx = getContext('2d')
+             var ctx = getContext('2d')
             ctx.strokeStyle = "red"
-            ctx.strokeRect(x0, y0, x1-x0, y1-y0 )
 
-            //add new rectangle to list, rectCount should > 0 because when the canvas is initialized, the program will execute here
-            if( window.rectCount > 0 ){
+            if( paraOnPaint === 0 ){
 
-                var width = x1-x0+1
-                var height = y1-y0+1
-                var newRect = window.rectCount + ";" + x0 + ";" + y0 + ";" + width + ";" + height
+                //add new rectangle to list, rectCount should > 0 because when the canvas is initialized, the program will execute here
+                if( window.rectCount > 0 ){
 
-                console.log(newRect)
-                window.rects.push(newRect ) //push new rect information to list, and will be updated to frame filter
-                //addNewRect(newRect) //send signal to ChartInfo
+                    ctx.strokeRect(x0, y0, x1-x0, y1-y0 )
 
-                listAllRects()
+                    var width = x1-x0+1
+                    var height = y1-y0+1
+                    var newRect = window.rectCount + ";" + x0 + ";" + y0 + ";" + width + ";" + height
 
+                    console.log(newRect)
+                    window.rects.push(newRect ) //push new rect information to list, and will be updated to frame filter
+                    //addNewRect(newRect) //send signal to ChartInfo
+
+                    listAllRects()
+
+
+                }
+
+                window.rectsListSize = window.rectCount
+
+                  /*TO DO: implementation of temporary rectangle*/
+    //            if( mouseArea.pressed ){
+    //                ctx.clearRect( x0-)
+    //            }
+
+
+            }else if( paraOnPaint === 1 ){
+
+                //remove rectangle
+                ctx.clearRect( 0, 0, roidrawcanvas.canvasSize.width, roidrawcanvas.canvasSize.height ) //remove all rectangle first
+
+                var rectCount = rects.length
+                for( var i=0; i<rectCount; i++ ){
+                    var stringList = rects[i].split(";")
+                    var sx = stringList[1] //x0
+                    var sy = stringList[2]  //y0
+                    var w = stringList[3]   //width
+                    var h = stringList[4]   //height
+                    console.log("x0 = " + sx + " y0 = " + sy + " w = " + w + " h = " + h )
+                    ctx.strokeRect( sx, sy, w, h )
+                }
+
+                paraOnPaint = 0
 
             }
 
-            window.rectsListSize = window.rectCount
-
-              /*TO DO: implementation of temporary rectangle*/
-//            if( mouseArea.pressed ){
-//                ctx.clearRect( x0-)
-//            }
 
         }
 
@@ -152,6 +178,8 @@ Rectangle {
                     //console.log( "y_pos = " + y_pos )
                     ctx.fillRect( 0, y_pos, gridviewcanvas.canvasSize.width, 1 )
 
+
+
                 }
 
             }else if( paraOnPaint == 1 ){
@@ -159,6 +187,47 @@ Rectangle {
                 ctx.fillStyle = Qt.rgba(102, 102, 102, 0.3 )
                 ctx.fillRect( x0, y0, Math.ceil( diffWidth), Math.ceil( diffHeight )  )
 
+            }else if( paraOnPaint == 2 ){
+
+                ctx.clearRect( 0, 0, canvasSize.width, canvasSize.height )
+
+               //draw vertical line
+                x_pos = 0
+                y_pos = 0
+
+                for( i=0; i<divWidth-1; i++ ){
+
+                    x_pos += diffWidth
+                    //console.log( "x_pos = " + x_pos )
+                    ctx.fillRect( x_pos, 0, 1, gridviewcanvas.canvasSize.height )
+
+                }
+
+                //draw horizontal line
+                for( i=0; i<divHeight-1; i++ ){
+
+                    y_pos += diffHeight
+                    //console.log( "y_pos = " + y_pos )
+                    ctx.fillRect( 0, y_pos, gridviewcanvas.canvasSize.width, 1 )
+
+                }
+
+
+                var rectCount = window.rects.length
+                for(  i=0; i<rectCount; i++ ){
+                    var stringList = window.rects[i].split(";")
+
+                    var sx = stringList[1] //x0
+                    var sy = stringList[2]  //y0
+                    var w = stringList[3]   //width
+                    var h = stringList[4]   //height
+
+                    ctx.fillStyle = Qt.rgba(102, 102, 102, 0.3 )
+                    ctx.fillRect( sx, sy, w, h  )
+
+                }
+
+                paraOnPaint = 1
             }
 
         }
@@ -209,6 +278,41 @@ Rectangle {
         for( var i=0; i<size; i++ ){
             console.log( window.rects[i] )
         }
+    }
+
+    function removeRectangle( index ){
+
+        if( index < 2 )
+            return
+
+        console.log("remove rectangle " + index )
+        console.log("before remove")
+        listAllRects()
+
+        if( roidrawcanvas.enabled === true ){
+
+            console.log("remove rectangle")
+            window.rects.splice( index-2, 1 )
+
+            roidrawcanvas.paraOnPaint = 1
+            roidrawcanvas.requestPaint()
+
+
+
+        }else if( gridviewcanvas.enabled === true ){
+
+            console.log("remove grid")
+
+            window.rects.splice( index-2, 1 )
+
+            gridviewcanvas.paraOnPaint = 2
+            gridviewcanvas.requestPaint()
+
+        }
+
+        console.log("after remove rectangle")
+        listAllRects()
+
     }
 
 

@@ -5,15 +5,31 @@ import qmlvideofilter 1.0
 
 ColumnLayout {
 
+    id: root
     width: 200
     height: 720
     spacing: 4
 
     property alias x_result: chartView.x_result
     property alias y_result: chartView2.y_result
-    property int updateChartInfoFlag: 0
+    property int currCount: 0
+    property var chartControl: null
 
     signal addNewRect( string rectName, string rectColor )
+
+    Component.onCompleted: {
+
+        chartControl.changeVisible.connect( function( index ){
+            chartView.series(index-1).visible = !chartView.series(index-1).visible;
+            chartView2.series(index-1).visible = !chartView2.series(index-1).visible;
+        })
+
+        chartControl.deleteSeries.connect( function( index ){
+            chartView.removeSeries( chartView.series(index-1) )
+            chartView2.removeSeries( chartView2.series(index-1) )
+        })
+
+    }
 
     ChartView{
 
@@ -37,7 +53,7 @@ ColumnLayout {
             if( currSize > 0 ){
 
                 if( currSize > 0 &&  currSize > x_resultSize ){
-                    addLineSeries( chartView , "lineSeris"+ currSize , axisX, axisY )
+                    addLineSeries( chartView , "lineSeris"+ root.currCount , axisX, axisY )
                     //listSeriesColor( chartView )
                 }else{
                     //removeLineSeries()
@@ -71,7 +87,7 @@ ColumnLayout {
         id: chartView2
         width: 500
         height: 300
-        animationOptions: ChartView.AllAnimations
+        animationOptions: ChartView.SeriesAnimations
         theme: ChartView.ChartThemeBlueIcy
         //legend.visible: false
 
@@ -86,7 +102,8 @@ ColumnLayout {
             if( currSize > 0 ){
 
                 if( currSize > 0 &&  currSize > y_resultSize ){
-                    addLineSeries( chartView2 , "lineSeris"+currSize , axisX2, axisY2 )
+                    addLineSeries( chartView2 , "lineSeris"+root.currCount , axisX2, axisY2 )
+                    currCount += 1
                     //listSeriesColor( chartView2 )
                 }else{
                     //removeLineSeries()
@@ -176,6 +193,7 @@ ColumnLayout {
 
     function updateChartValue( chart, list ){
         var count = list.length
+        //console.log("count = " + count )
         for( var i=0; i<count; i++ ){
             updateSeries( chart.series(i), list[i] )
         }

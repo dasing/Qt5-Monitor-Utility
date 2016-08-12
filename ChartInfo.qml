@@ -14,6 +14,9 @@ Rectangle {
     property int deletedIndex: -1
     property int itemHeight: 30
 
+    signal changeVisible( int index )
+    signal deleteSeries( int index )
+
     Text{
         id: title
         objectName: "text"
@@ -28,8 +31,8 @@ Rectangle {
 
         chartScope.addNewRect.connect( function( name, color){
 
-            console.log("in ChartInfo")
-            console.log("recvItem =" + name + " " + color  )
+//            console.log("in ChartInfo")
+//            console.log("recvItem =" + name + " " + color  )
 
             chartRect.activeLineSeries += 1
             ComponentCreateScript.createLineSerisInfos( chartRect.activeLineSeries, name, color  )
@@ -45,6 +48,12 @@ Rectangle {
             ComponentCreateScript.updateIndex( deletedIndex )
             ComponentCreateScript.updateItemPosition( deletedIndex )
             chartInfo.height -= itemHeight
+
+            //transfer deletedIndex to chartspace and videoview
+            deleteSeries( deletedIndex )
+
+            deletedIndex = -1
+            activeLineSeries -= 1
         }
     }
 

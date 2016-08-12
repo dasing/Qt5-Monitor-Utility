@@ -15,16 +15,13 @@ Item {
         anchors.leftMargin: 50
         //anchors.right: chartspace.left
         //anchors.rightMargin: 0
+        chartControl: chartInfo
 
         width: 640
         height: 480
 
         filter.onFinished: {
 
-            //console.log("finiish and the value is " + res.brightness  )
-            //console.log("brihgtness2 = " + res.brightness2 )
-            //chartspace.brightnessValue = res.brightness
-            //chartspace.brightnessValue2 = res.brightness2
             chartspace.x_result = res.x_result
             chartspace.y_result = res.y_result
         }
@@ -45,6 +42,7 @@ Item {
         chartScope: chartspace
 
 
+
     }
 
     ChartSpace{
@@ -55,6 +53,7 @@ Item {
         anchors.right: parent.right
         anchors.left: videoview.right
         anchors.leftMargin: 50
+        chartControl: chartInfo
 
 
     }
@@ -68,7 +67,6 @@ Item {
         drawcanvas: videoview.roicanvas.roidrawcanvas
         gridviewcanvas: videoview.roicanvas.gridviewcanvas
 
-        //signal changeRange()
 
         roiButton.onClicked: {
             console.log("clicked ROI")

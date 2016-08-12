@@ -8,6 +8,18 @@ Rectangle {
     id: window
     property alias filter: filter
     property alias roicanvas: roicanvas
+    property var chartControl: null
+
+
+    Component.onCompleted: {
+
+        chartControl.deleteSeries.connect( function( index ){
+            console.log("VideoView receive delete signal from chartInfo, index is " + index )
+            roicanvas.removeRectangle( index )
+            filter.removeData( index )
+        })
+
+    }
 
     ROICanvas{
 
@@ -24,19 +36,7 @@ Rectangle {
 
         id:filter
 
-        /*range parameter*/
-        property int x_start: -1
-        property int x_end: -1
-        property int y_start: -1
-        property int y_end: -1
         property int updateFlag : 0 // 1 means has new thing to update, 0 means nothing to update
-
-//        onX_startChanged: {
-//            console.log("x_start change successfully to " + x_start );
-//            filter.setX_start(x_start);
-//            console.log("camera resolrtion = " + camera.viewfinder.resolution );
-
-//        }
 
         onUpdateFlagChanged: {
 
@@ -50,7 +50,6 @@ Rectangle {
                 //console.log( roicanvas.arealist.areaList )
 
                 rectList = roicanvas.rects
-                //filter.addRect("222")
                 filter.listRectList()
 
                 updateFlag = 0
@@ -78,7 +77,6 @@ Rectangle {
         filters: [ filter ]
 
     }
-
 
 
 

@@ -68,6 +68,8 @@ RowLayout {
 
         onClicked:{
             _visible = _visible ? false : true;
+            changeVisible( seriesInfo.index )
+
         }
     }
 
