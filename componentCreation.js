@@ -35,22 +35,22 @@ function deleteLineSeries( seriesName, index ){
     chartRect.deletedIndex = index
 }
 
-function createLineSerisInfos( activeLineSeries ) {
+function createLineSerisInfos( activeLineSeries, name, color ) {
 
         component = Qt.createComponent("LineSeriesInfo.qml");
 
         if( component.status === Component.Ready ){
             //console.log("here1");
-            finishCreation( activeLineSeries );
+            finishCreation( activeLineSeries, name, color  );
         }else{
             console.log(component.status);
             console.log("Error loading component: ", component.errorString() );
-            component.statusChanged.connect( finishCreation( activeLineSeries ) );
+            component.statusChanged.connect( finishCreation( activeLineSeries, name, color ) );
         }
 
 }
 
-function finishCreation( activeLineSeries){
+function finishCreation( activeLineSeries, name, color ){
 
     var topMargin = 38
     var itemHeight = 25
@@ -62,10 +62,12 @@ function finishCreation( activeLineSeries){
         if( seriesInfo === null ){
             console.log("Error creating object");
         }else{
-            //console.log("object create successful");
-            seriesInfo.objectName = "seriesInfo" + activeLineSeries;
+
+            seriesInfo.objectName = name;
+            seriesInfo.seriesColor.color = color
             seriesInfo.index = activeLineSeries;
             seriesInfo.deleteLineSeries.connect(  deleteLineSeries  );
+            console.log("Create " + name + " with index " + activeLineSeries );
 
 
         }

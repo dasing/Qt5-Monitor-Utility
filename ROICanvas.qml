@@ -9,17 +9,14 @@ Rectangle {
     anchors.fill: parent
     color: "transparent"
 
-
     property alias roidrawcanvas: roidrawcanvas
     property alias gridviewcanvas: gridviewcanvas
     property alias mouseArea: mouseArea
 
-
     property int rectCount: 0
     property var rects:[ ]
     property int rectsListSize: 0
-    signal addNewRect( var rect )
-
+    //signal addNewRect( var rect )
 
     Canvas{
 
@@ -49,8 +46,8 @@ Rectangle {
                 var newRect = window.rectCount + ";" + x0 + ";" + y0 + ";" + width + ";" + height
 
                 console.log(newRect)
-                window.rects.push(newRect )
-                addNewRect(newRect) //send signal to ChartInfo
+                window.rects.push(newRect ) //push new rect information to list, and will be updated to frame filter
+                //addNewRect(newRect) //send signal to ChartInfo
 
                 listAllRects()
 
@@ -107,10 +104,15 @@ Rectangle {
         property int paraOnPaint: 0
         property int x0: 0
         property int y0: 0
+        property var flag: []
 
         onDivHeightChanged: {
             //console.log("divWidth changed to " + divWidth )
             //console.log("divHeight changed to " + divHeight )
+
+            //set flag to note if the rectangle have been pressed, 0 means no , 1 means yes
+            for( var i=0; i< divWidth * divHeight; i++ )
+                flag.push(0)
 
             gridviewcanvas.requestPaint()
         }
@@ -176,19 +178,26 @@ Rectangle {
                 var y_idx = Math.floor( mouse.y/gridviewcanvas.diffHeight )
                 var rectIdx = y_idx*gridviewcanvas.divWidth + x_idx
                 var newRect = window.rectCount + ";" + x_idx * Math.floor(gridviewcanvas.diffWidth ) + ";" + y_idx * Math.floor(gridviewcanvas.diffHeight ) + ";" + Math.ceil( gridviewcanvas.diffWidth)  + ";" +  Math.ceil( gridviewcanvas.diffHeight);
-                window.rects.push(newRect)
-                addNewRect(newRect) //send signal to ChartInfo
 
-                console.log("press pos: x = " + mouse.x + " y = " + mouse.y + " idx = " + rectIdx )
-                console.log(newRect)
+                if( gridviewcanvas.flag[rectIdx] === 0 ){
 
-                 gridviewcanvas.x0 = x_idx * Math.floor(gridviewcanvas.diffWidth )
-                 gridviewcanvas.y0 = y_idx * Math.floor(gridviewcanvas.diffHeight )
+                    //console.log("press pos: x = " + mouse.x + " y = " + mouse.y + " idx = " + rectIdx )
+                    console.log(newRect)
 
-                 gridviewcanvas.requestPaint()
+                     window.rects.push(newRect)
 
-                //update to framefilter
-                window.rectsListSize = window.rectCount
+                     gridviewcanvas.x0 = x_idx * Math.floor(gridviewcanvas.diffWidth )
+                     gridviewcanvas.y0 = y_idx * Math.floor(gridviewcanvas.diffHeight )
+
+                     gridviewcanvas.requestPaint()
+
+                    //update flag list
+                    gridviewcanvas.flag[rectIdx] = 1
+
+                    //update to framefilter
+                    window.rectsListSize = window.rectCount
+
+                }
 
             }
         }

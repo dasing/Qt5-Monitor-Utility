@@ -42,6 +42,7 @@ Item {
         anchors.rightMargin: 50
         visible: false
         canvas: videoview.roicanvas
+        chartScope: chartspace
 
 
     }

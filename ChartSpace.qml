@@ -11,7 +11,9 @@ ColumnLayout {
 
     property alias x_result: chartView.x_result
     property alias y_result: chartView2.y_result
+    property int updateChartInfoFlag: 0
 
+    signal addNewRect( string rectName, string rectColor )
 
     ChartView{
 
@@ -27,7 +29,6 @@ ColumnLayout {
 
         onX_resultChanged: {
 
-
             //displayElement(x_result)
 
             var currSize = x_result === null ? -1 : x_result.length
@@ -36,7 +37,7 @@ ColumnLayout {
             if( currSize > 0 ){
 
                 if( currSize > 0 &&  currSize > x_resultSize ){
-                    addLineSeries( chartView , "lineSeris"+currSize , axisX, axisY )
+                    addLineSeries( chartView , "lineSeris"+ currSize , axisX, axisY )
                     //listSeriesColor( chartView )
                 }else{
                     //removeLineSeries()
@@ -71,7 +72,7 @@ ColumnLayout {
         width: 500
         height: 300
         animationOptions: ChartView.AllAnimations
-        theme: ChartView.ChartThemeBrownSand
+        theme: ChartView.ChartThemeBlueIcy
         //legend.visible: false
 
         property var y_result: null
@@ -182,7 +183,15 @@ ColumnLayout {
 
     function addLineSeries( chart, seriesName, axis1, axis2 ){
 
-        chart.createSeries( ChartView.SeriesTypeSpline, seriesName, axis1, axis2 );
+        var series = chart.createSeries( ChartView.SeriesTypeSpline, seriesName, axis1, axis2 );
+
+        //x change first, so after y addLineSeries, both x and y have finished adding LineSeries, then send signal to chartInfo
+        if( chart === chartView2 ){
+            addNewRect( seriesName, series.color ) //send addRect signal to chartInfo
+            //console.log("new Series color = " + series.color )
+        }
+
+
     }
 
     function listSeriesColor( chart ){

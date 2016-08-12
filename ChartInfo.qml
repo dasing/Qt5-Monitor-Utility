@@ -8,6 +8,7 @@ Rectangle {
     height: 70
     border.color: "black"
     color: "white"
+    property var chartScope: null
     property var canvas: null
     property int activeLineSeries: 0
     property int deletedIndex: -1
@@ -25,12 +26,13 @@ Rectangle {
 
     Component.onCompleted: {
 
-        canvas.addNewRect.connect( function(item){
+        chartScope.addNewRect.connect( function( name, color){
+
             console.log("in ChartInfo")
-            console.log("recvItem =" + item )
+            console.log("recvItem =" + name + " " + color  )
 
             chartRect.activeLineSeries += 1
-            ComponentCreateScript.createLineSerisInfos( chartRect.activeLineSeries )
+            ComponentCreateScript.createLineSerisInfos( chartRect.activeLineSeries, name, color  )
             chartInfo.height += itemHeight
 
         })

@@ -12,6 +12,7 @@ RowLayout {
 
     property int index: -1
     property bool _visible: true
+    property alias seriesColor: seriesColor
 
     signal deleteLineSeries( string seriesName, int index )
 
