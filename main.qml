@@ -5,13 +5,20 @@ Item {
     width: 1300
     height: 720
 
+    MenuBar{
+        id: menu
+        anchors.left: parent.left
+        anchors.top:parent.top
+    }
+
+
     VideoView{
 
         id: videoview
         anchors.top: parent.top
         anchors.topMargin: 50
         //anchors.bottom: parent.bottom
-        anchors.left: parent.left
+        anchors.left: menu.left
         anchors.leftMargin: 50
         //anchors.right: chartspace.left
         //anchors.rightMargin: 0
@@ -21,7 +28,6 @@ Item {
         height: 480
 
         filter.onFinished: {
-
             chartspace.x_result = res.x_result
             chartspace.y_result = res.y_result
         }

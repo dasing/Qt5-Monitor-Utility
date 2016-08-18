@@ -3,9 +3,6 @@
 #include <QQmlApplicationEngine>
 #include <QQmlContext>
 #include<QAbstractVideoFilter>
-//#include <opencv2/core/core.hpp>
-//#include <opencv2/imgproc/imgproc.hpp>
-//#include <opencv2/highgui/highgui.hpp>
 #include <QDebug>
 #include <qglobal.h>
 #include <QTime>
@@ -38,8 +35,8 @@ QVideoFrame FrameFilterRunnable::run( QVideoFrame *input, const QVideoSurfaceFor
     if( input->isValid() ){
 
         //Whole input
-        result->m_xResult.append( computeData( 0, input->width()-1 ) );
-        result->m_yResult.append( computeData( 0, input->height()-1 ) );
+//        result->m_xResult.append( computeData( 0, input->width()-1 ) );
+//        result->m_yResult.append( computeData( 0, input->height()-1 ) );
 
         //ROI
         if( m_filter->arealist.size() != 0 ){

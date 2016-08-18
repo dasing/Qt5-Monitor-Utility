@@ -55,8 +55,6 @@ ColumnLayout {
                 if( currSize > 0 &&  currSize > x_resultSize ){
                     addLineSeries( chartView , "lineSeris"+ root.currCount , axisX, axisY )
                     //listSeriesColor( chartView )
-                }else{
-                    //removeLineSeries()
                 }
 
                 updateChartValue( chartView, x_result )
@@ -105,8 +103,6 @@ ColumnLayout {
                     addLineSeries( chartView2 , "lineSeris"+root.currCount , axisX2, axisY2 )
                     currCount += 1
                     //listSeriesColor( chartView2 )
-                }else{
-                    //removeLineSeries()
                 }
 
                 updateChartValue( chartView2, y_result )

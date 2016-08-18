@@ -215,6 +215,7 @@ Rectangle {
 
                 var rectCount = window.rects.length
                 for(  i=0; i<rectCount; i++ ){
+
                     var stringList = window.rects[i].split(";")
 
                     var sx = stringList[1] //x0
@@ -282,7 +283,7 @@ Rectangle {
 
     function removeRectangle( index ){
 
-        if( index < 2 )
+        if( index < 1 )
             return
 
         console.log("remove rectangle " + index )
@@ -292,19 +293,24 @@ Rectangle {
         if( roidrawcanvas.enabled === true ){
 
             console.log("remove rectangle")
-            window.rects.splice( index-2, 1 )
+            window.rects.splice( index-1, 1 )
 
             roidrawcanvas.paraOnPaint = 1
             roidrawcanvas.requestPaint()
-
-
 
         }else if( gridviewcanvas.enabled === true ){
 
             console.log("remove grid")
 
-            window.rects.splice( index-2, 1 )
+            var stringList = window.rects[index-1].split(";")
+            var sx = stringList[1]
+            var sy = stringList[2]
+            var idx = Math.floor( sx/ gridviewcanvas.diffWidth ) +  gridviewcanvas.divWidth * Math.floor( sy/gridviewcanvas.diffHeight )
 
+            gridviewcanvas.flag[idx] = 0
+            console.log("paint idx = " + idx)
+
+            window.rects.splice( index-1, 1 )
             gridviewcanvas.paraOnPaint = 2
             gridviewcanvas.requestPaint()
 

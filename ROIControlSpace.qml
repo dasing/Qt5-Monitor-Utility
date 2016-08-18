@@ -22,6 +22,8 @@ RowLayout {
     property var drawcanvas: null
     property var gridviewcanvas: null
 
+    //signal resetROI()
+
     Button{
 
         id: roiButton
@@ -180,7 +182,9 @@ RowLayout {
                 }
          }
 
+        onClicked:{
 
+        }
 
     }
 
@@ -206,10 +210,5 @@ RowLayout {
          }
 
     }
-
-
-
-
-
 
 }
