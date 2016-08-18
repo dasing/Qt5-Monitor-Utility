@@ -91,3 +91,10 @@ void FrameFilter::removeData(int index){
     }
 
 }
+
+void FrameFilter::clearData(){
+
+    while( !arealist.isEmpty() ){
+        arealist.pop_front();
+    }
+}

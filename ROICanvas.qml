@@ -84,6 +84,12 @@ Rectangle {
 
                 paraOnPaint = 0
 
+            }else if( paraOnPaint === 2 ){
+
+                //reset roidrawcanvas
+                ctx.clearRect( 0, 0, roidrawcanvas.canvasSize.width, roidrawcanvas.canvasSize.height )
+                paraOnPaint = 0
+
             }
 
 
@@ -189,7 +195,7 @@ Rectangle {
 
             }else if( paraOnPaint == 2 ){
 
-                ctx.clearRect( 0, 0, canvasSize.width, canvasSize.height )
+                ctx.clearRect( 0, 0, canvasSize.width, canvasSize.height ) //remove all component first
 
                //draw vertical line
                 x_pos = 0
@@ -229,6 +235,15 @@ Rectangle {
                 }
 
                 paraOnPaint = 1
+
+            }else if( paraOnPaint === 3 ){
+
+                ctx.clearRect( 0, 0, canvasSize.width, canvasSize.height )
+                divWidth = 0
+                divHeight = 0
+                paraOnPaint = 0
+                flag = []
+
             }
 
         }
@@ -319,6 +334,15 @@ Rectangle {
         console.log("after remove rectangle")
         listAllRects()
 
+    }
+
+    function clearData(){
+        window.rects = []
+        roidrawcanvas.paraOnPaint = 2
+        roidrawcanvas.requestPaint()
+
+        gridviewcanvas.paraOnPaint = 3
+        gridviewcanvas.requestPaint()
     }
 
 

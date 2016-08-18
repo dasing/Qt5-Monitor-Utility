@@ -27,6 +27,7 @@ public:
     Q_INVOKABLE void listRectList();
     Q_INVOKABLE void addRect( QString newString );
     Q_INVOKABLE void removeData( int index );
+    Q_INVOKABLE void clearData();
 
     QList<SelectionArea*> arealist;
 

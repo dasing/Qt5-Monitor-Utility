@@ -1,7 +1,7 @@
 import QtQuick 2.0
 import QtMultimedia 5.5
 import qmlvideofilter 1.0
-//import qmlroicanvas 1.0
+
 
 Rectangle {
 
@@ -9,14 +9,20 @@ Rectangle {
     property alias filter: filter
     property alias roicanvas: roicanvas
     property var chartControl: null
+    property var controlSpace: null
 
 
     Component.onCompleted: {
 
         chartControl.deleteSeries.connect( function( index ){
-            console.log("VideoView receive delete signal from chartInfo, index is " + index )
+            //console.log("VideoView receive delete signal from chartInfo, index is " + index )
             roicanvas.removeRectangle( index )
             filter.removeData( index )
+        })
+
+        controlSpace.resetROI.connect( function(){
+            roicanvas.clearData()
+            filter.clearData()
         })
 
     }

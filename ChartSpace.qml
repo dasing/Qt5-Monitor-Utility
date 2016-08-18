@@ -14,6 +14,7 @@ ColumnLayout {
     property alias y_result: chartView2.y_result
     property int currCount: 0
     property var chartControl: null
+    property var controlSpace: null
 
     signal addNewRect( string rectName, string rectColor )
 
@@ -27,6 +28,13 @@ ColumnLayout {
         chartControl.deleteSeries.connect( function( index ){
             chartView.removeSeries( chartView.series(index-1) )
             chartView2.removeSeries( chartView2.series(index-1) )
+        })
+
+        controlSpace.resetROI.connect( function(){
+            chartView.removeAllSeries()
+            chartView2.removeAllSeries()
+            currCount = 0
+
         })
 
     }

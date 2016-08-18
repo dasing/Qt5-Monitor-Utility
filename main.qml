@@ -23,6 +23,7 @@ Item {
         //anchors.right: chartspace.left
         //anchors.rightMargin: 0
         chartControl: chartInfo
+        controlSpace: roiControlSpace
 
         width: 640
         height: 480
@@ -46,6 +47,7 @@ Item {
         visible: false
         canvas: videoview.roicanvas
         chartScope: chartspace
+        controlSpace: roiControlSpace
 
 
 
@@ -60,6 +62,8 @@ Item {
         anchors.left: videoview.right
         anchors.leftMargin: 50
         chartControl: chartInfo
+        controlSpace: roiControlSpace
+
 
 
     }
@@ -80,7 +84,7 @@ Item {
             rectangleROI.visible = true
             gridviewROI.visible = true
             reset.visible = true
-            quit.visible = true
+            //quit.visible = true
             chartInfo.visible = true
 
         }

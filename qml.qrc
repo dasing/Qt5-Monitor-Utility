@@ -4,9 +4,6 @@
         <file>VideoView.qml</file>
         <file>ChartSpace.qml</file>
         <file>ROIControlSpace.qml</file>
-        <file>Slider_handle.png</file>
-        <file>Divider.qml</file>
-        <file>Curtain.qml</file>
         <file>ROICanvas.qml</file>
         <file>ChartInfo.qml</file>
         <file>componentCreation.js</file>

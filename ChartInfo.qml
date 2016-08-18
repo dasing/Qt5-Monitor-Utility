@@ -10,6 +10,7 @@ Rectangle {
     color: "white"
     property var chartScope: null
     property var canvas: null
+    property var controlSpace: null
     property int activeLineSeries: 0
     property int deletedIndex: -1
     property int itemHeight: 30
@@ -37,6 +38,13 @@ Rectangle {
             chartRect.activeLineSeries += 1
             ComponentCreateScript.createLineSerisInfos( chartRect.activeLineSeries, name, color  )
             chartInfo.height += itemHeight
+
+        })
+
+        controlSpace.resetROI.connect( function(){
+            ComponentCreateScript.deleteAllLineSeries()
+            chartInfo.height -= itemHeight*activeLineSeries
+            chartRect.activeLineSeries = 0
 
         })
     }

@@ -69,12 +69,19 @@ function finishCreation( activeLineSeries, name, color ){
             seriesInfo.deleteLineSeries.connect(  deleteLineSeries  );
             console.log("Create " + name + " with index " + activeLineSeries );
 
-
         }
 
     }else if( component.status === Component.Error ){
         console.log("Error loading component: ", component.errorString() );
     }
 
+}
+
+function deleteAllLineSeries(){
+
+    var size = chartRect.children.length
+    for( var i=1; i<size; i++ ){
+        chartRect.children[i].destroy()
+    }
 
 }
