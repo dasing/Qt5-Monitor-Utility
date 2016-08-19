@@ -13,5 +13,17 @@
         <file>gray-eye.png</file>
         <file>cancel.png</file>
         <file>MenuBar.qml</file>
+        <file>image/camera_red.png</file>
+        <file>image/camera_white.png</file>
+        <file>image/computer_red.png</file>
+        <file>image/computer_white.png</file>
+        <file>image/frequency_red.png</file>
+        <file>image/frequency_white.png</file>
+        <file>image/settings_red.png</file>
+        <file>image/settings_white.png</file>
+        <file>image/square_red.png</file>
+        <file>image/square_white.png</file>
+        <file>image/window_red.png</file>
+        <file>image/window_white.png</file>
     </qresource>
 </RCC>
