@@ -3,102 +3,117 @@ import QtQuick.Controls 1.4
 import QtQuick.Controls.Styles 1.4
 import QtQuick.Layouts 1.0
 
-RowLayout{
+ColumnLayout{
 
-    id: menuBarList
+    property int menubarWidth: 0
+    property int menubarHeight: 0
+    property int iconWidth: 50
+    property int logoHeight: 60
+
     anchors.left: parent.left
     anchors.top: parent.top
     anchors.bottom: parent.bottom
     spacing: 0
 
-    property int menubarWidth: 0
-    property int menubarHeight: 0
-    property int iconWidth: 50
-
-
     Rectangle{
 
-        id: iconList
-
-        implicitHeight: menubarHeight
-        implicitWidth: iconWidth
-
+        id: logo
         color: "#efa1af"
+        implicitHeight: logoHeight
+        implicitWidth: menubarWidth
+
+        Image{
+            width: logo.implicitWidth
+            height: 35
+            fillMode: Image.PreserveAspectFit
+            source: "qrc:/image/logo.png"
+            anchors.centerIn: parent
+        }
     }
 
-    Rectangle{
+    RowLayout{
 
-        id: textList
+        id: menuBarList
+        spacing: 0
 
-        implicitHeight: menubarHeight
-        implicitWidth: menubarWidth - iconWidth
+        Rectangle{
 
-        color: "#fcd7da"
+            id: iconList
+            implicitHeight: menubarHeight
+            implicitWidth: iconWidth
+            color: "#efa1af"
+        }
 
-    }
+        Rectangle{
 
+            id: textList
+            implicitHeight: menubarHeight
+            implicitWidth: menubarWidth - iconWidth
+            color: "#fcd1d3"
 
-
-    ListView{
-
-        id: listView
-        anchors.fill: parent
-        spacing: 10
-
-        model: MenuBarList {}
-        delegate: menuitemdelegate
-
-        Component{
-
-            id: menuitemdelegate
+        }
 
 
-            Button{
-                id: menuitem
+        ListView{
 
-                style: ButtonStyle{
+            id: listView
+            anchors.fill: parent
+            spacing: 10
+            model: MenuBarList {}
+            delegate: menuitemdelegate
 
-                    background: Rectangle{
-                        color: control.hovered ? "#e55175" : "transparent"
-                    }
+            Component{
 
-                    label: RowLayout{
+                id: menuitemdelegate
 
-                        Rectangle{
+                Button{
+                    id: menuitem
 
-                            id: icon
-                            implicitHeight: 25
-                            implicitWidth: 25
-                            anchors.left: parent.left
-                            anchors.leftMargin: 8
-                            color: "transparent"
+                    style: ButtonStyle{
 
-                            Image{
-
-                                anchors.fill: parent
-                                source: control.hovered ? hoveredSource : imgSource
-                            }
-
+                        background: Rectangle{
+                            color: control.hovered ? "#e55175" : "transparent"
                         }
 
-                        Rectangle{
+                        label: RowLayout{
 
-                            implicitWidth: menubarWidth - iconWidth + 12
-                            implicitHeight: 18
-                            color: "transparent"
-                            anchors.left: icon.right
-                            anchors.leftMargin: 25
+                            Rectangle{
 
-                            Text{
-                                text: name
-                                color: control.hovered ? "#ffffff" : "#000000"
-                                font.family: "sans-serif"
+                                id: icon
+                                implicitHeight: 25
+                                implicitWidth: 25
+                                anchors.left: parent.left
+                                anchors.leftMargin: 8
+                                color: "transparent"
+
+                                Image{
+
+                                    anchors.fill: parent
+                                    source: control.hovered ? hoveredSource : imgSource
+                                }
+
                             }
 
+                            Rectangle{
+
+                                implicitWidth: menubarWidth - iconWidth + 12
+                                implicitHeight: 18
+                                color: "transparent"
+                                anchors.left: icon.right
+                                anchors.leftMargin: 25
+
+                                Text{
+                                    text: name
+                                    color: control.hovered ? "#ffffff" : "#000000"
+                                    font.family: "sans-serif"
+                                }
+
+                            }
+
+
                         }
-
-
                     }
+
                 }
 
             }
@@ -107,4 +122,8 @@ RowLayout{
 
     }
 
+
 }
+
+
+

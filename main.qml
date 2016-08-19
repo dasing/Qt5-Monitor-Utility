@@ -5,6 +5,17 @@ Item {
     width: 1400
     height: 720
 
+    Location{
+
+        id: location
+        anchors.left: menu.right
+        anchors.top: parent.top
+        anchors.right: parent.right
+        height: menu.logoHeight
+
+    }
+
+
     MenuBar{
 
         id: menu
@@ -20,7 +31,7 @@ Item {
     VideoView{
 
         id: videoview
-        anchors.top: parent.top
+        anchors.top: location.bottom
         anchors.topMargin: 50
         //anchors.bottom: parent.bottom
         anchors.left: menu.right
@@ -43,10 +54,10 @@ Item {
     ChartInfo{
 
         id: chartInfo
-        anchors.top: parent.top
+        anchors.top: location.bottom
         anchors.topMargin: 50
         anchors.left: videoview.right
-        anchors.leftMargin: 50
+        anchors.leftMargin: 30
         anchors.right: parent.right
         anchors.rightMargin: 50
         visible: false
@@ -61,15 +72,13 @@ Item {
     ChartSpace{
 
         id: chartspace
-        anchors.top: chartInfo.visible ? chartInfo.bottom : parent.top
+        anchors.top: chartInfo.visible ? chartInfo.bottom : location.bottom
         anchors.bottom: parent.bottom
         anchors.right: parent.right
         anchors.left: videoview.right
-        anchors.leftMargin: 50
+        anchors.leftMargin: 30
         chartControl: chartInfo
         controlSpace: roiControlSpace
-
-
 
     }
 
