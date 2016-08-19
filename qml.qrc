@@ -25,5 +25,7 @@
         <file>image/square_white.png</file>
         <file>image/window_red.png</file>
         <file>image/window_white.png</file>
+        <file>MenuBarList.qml</file>
+        <file>image/logo.png</file>
     </qresource>
 </RCC>

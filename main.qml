@@ -2,13 +2,18 @@ import QtQuick 2.0
 
 Item {
     id: root
-    width: 1300
+    width: 1400
     height: 720
 
     MenuBar{
+
         id: menu
-        anchors.left: parent.left
-        anchors.top:parent.top
+        anchors.left: root.left
+        anchors.top: root.top
+        anchors.bottom: root.bottom
+        menubarWidth: 230
+        menubarHeight: root.height
+
     }
 
 
@@ -18,8 +23,8 @@ Item {
         anchors.top: parent.top
         anchors.topMargin: 50
         //anchors.bottom: parent.bottom
-        anchors.left: menu.left
-        anchors.leftMargin: 50
+        anchors.left: menu.right
+        anchors.leftMargin: 30
         //anchors.right: chartspace.left
         //anchors.rightMargin: 0
         chartControl: chartInfo
@@ -73,7 +78,7 @@ Item {
         id: roiControlSpace
         anchors.top: videoview.bottom
         anchors.topMargin: 5
-        anchors.left: parent.left
+        anchors.left: menu.right
         drawcanvas: videoview.roicanvas.roidrawcanvas
         gridviewcanvas: videoview.roicanvas.gridviewcanvas
 
