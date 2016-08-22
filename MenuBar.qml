@@ -62,6 +62,21 @@ ColumnLayout{
             spacing: 10
             model: MenuBarList {}
             delegate: menuitemdelegate
+            property int defaultPageIndex: 2
+            property string defaultPageHoveredSource: "qrc:/image/square_white.png"
+            property color defaultTextColor: "#000000"
+            property color hoveredTextColor: "#ffffff"
+            property color pressedTextColor: "#ffffff"
+            property color hoveredBackgroundColor: "#e55175"
+
+            Component.onCompleted: {
+
+                //default page is ROI, index is 2
+                listView.currentIndex = defaultPageIndex
+                listView.currentItem.backgroundColor = hoveredBackgroundColor
+                listView.currentItem.textColor = pressedTextColor
+                listView.currentItem.iconColor = defaultPageHoveredSource
+            }
 
             Component{
 
@@ -69,11 +84,17 @@ ColumnLayout{
 
                 Button{
                     id: menuitem
+                    property color backgroundColor: hovered ? listView.hoveredBackgroundColor : "transparent"
+                    property color textColor: hovered ? listView.hoveredTextColor : listView.defaultTextColor
+                    property string iconColor: hovered ? hoveredSource : imgSource
+
 
                     style: ButtonStyle{
 
                         background: Rectangle{
-                            color: control.hovered ? "#e55175" : "transparent"
+                            id: bgRect
+                            color: menuitem.backgroundColor
+
                         }
 
                         label: RowLayout{
@@ -90,7 +111,7 @@ ColumnLayout{
                                 Image{
 
                                     anchors.fill: parent
-                                    source: control.hovered ? hoveredSource : imgSource
+                                    source: menuitem.iconColor
                                 }
 
                             }
@@ -105,7 +126,7 @@ ColumnLayout{
 
                                 Text{
                                     text: name
-                                    color: control.hovered ? "#ffffff" : "#000000"
+                                    color: menuitem.textColor
                                     font.family: "sans-serif"
                                 }
 
@@ -116,8 +137,24 @@ ColumnLayout{
                     }
 
                     onClicked: {
+
+                        //recover background color first
+                        listView.currentItem.backgroundColor = "transparent"
+                        listView.currentItem.textColor = listView.defaultTextColor
+                        listView.currentItem.iconColor = imgSource
+
+                        //change state in main.qml
                         currPage = name
-                        //console.log("press  " + name )
+
+                        //change backgroundColor
+                        listView.currentIndex = index
+                        listView.currentItem.backgroundColor = listView.hoveredBackgroundColor
+                        listView.currentItem.textColor = listView.pressedTextColor
+                        listView.currentItem.iconColor = hoveredSource
+
+
+
+
                     }
 
                 }

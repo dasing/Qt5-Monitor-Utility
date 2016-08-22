@@ -5,7 +5,7 @@ Item {
     id: root
     width: 1400
     height: 720
-    state: "ROIPage"
+    state: "ROI"
 
     //menu bar
     Location{
