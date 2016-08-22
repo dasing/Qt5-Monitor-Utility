@@ -11,7 +11,7 @@ ListModel {
     }
 
     ListElement{
-        name: "HeartBeat and Breath"
+        name: "HeartBeat and Breathe"
         imgSource: "qrc:/image/frequency_red.png"
         hoveredSource: "qrc:/image/frequency_white.png"
     }

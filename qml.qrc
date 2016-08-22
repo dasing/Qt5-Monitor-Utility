@@ -31,7 +31,6 @@
         <file>ROIPage.qml</file>
         <file>SettingPage.qml</file>
         <file>HeartBreathePage.qml</file>
-        <file>image/TestConfigPage.qml</file>
         <file>SystemFunctionPage.qml</file>
         <file>CameraTestPage.qml</file>
         <file>TestConfigPage.qml</file>

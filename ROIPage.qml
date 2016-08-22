@@ -2,43 +2,15 @@ import QtQuick 2.0
 
 Item {
     id: root
-    width: 1400
-    height: 720
-    anchors.fill: parent
-
-//    Location{
-
-//        id: location
-//        anchors.left: menu.right
-//        anchors.top: parent.top
-//        anchors.right: parent.right
-//        height: menu.logoHeight
-
-//    }
-
-
-//    MenuBar{
-
-//        id: menu
-//        anchors.left: root.left
-//        anchors.top: root.top
-//        anchors.bottom: root.bottom
-//        menubarWidth: 230
-//        menubarHeight: root.height
-
-//    }
-
+//    width: 1400
+//    height: 720
+    //anchors.fill: parent
 
     VideoView{
 
         id: videoview
-        anchors.top: parent.bottom
-        anchors.topMargin: 50
-        //anchors.bottom: parent.bottom
-        anchors.left: parent.right
-        anchors.leftMargin: 30
-        //anchors.right: chartspace.left
-        //anchors.rightMargin: 0
+        anchors.top: parent.top
+        anchors.left: parent.left
         chartControl: chartInfo
         controlSpace: roiControlSpace
 
@@ -55,8 +27,7 @@ Item {
     ChartInfo{
 
         id: chartInfo
-        anchors.top: parent.bottom
-        anchors.topMargin: 50
+        anchors.top: parent.top
         anchors.left: videoview.right
         anchors.leftMargin: 30
         anchors.right: parent.right
@@ -66,14 +37,13 @@ Item {
         chartScope: chartspace
         controlSpace: roiControlSpace
 
-
-
     }
 
     ChartSpace{
 
         id: chartspace
         anchors.top: chartInfo.visible ? chartInfo.bottom : parent.top
+        anchors.topMargin: 30
         anchors.bottom: parent.bottom
         anchors.right: parent.right
         anchors.left: videoview.right
@@ -94,12 +64,10 @@ Item {
 
 
         roiButton.onClicked: {
-            console.log("clicked ROI")
 
             rectangleROI.visible = true
             gridviewROI.visible = true
             reset.visible = true
-            //quit.visible = true
             chartInfo.visible = true
 
         }

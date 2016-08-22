@@ -9,6 +9,7 @@ ColumnLayout{
     property int menubarHeight: 0
     property int iconWidth: 50
     property int logoHeight: 60
+    property string currPage
 
     anchors.left: parent.left
     anchors.top: parent.top
@@ -112,6 +113,11 @@ ColumnLayout{
 
 
                         }
+                    }
+
+                    onClicked: {
+                        currPage = name
+                        //console.log("press  " + name )
                     }
 
                 }
