@@ -67,6 +67,8 @@ RowLayout {
 
         onClicked: {
             drawcanvas.enabled = true
+            gridviewcanvas.enabled = false
+            gridviewroiControlSpace.visible = false
         }
 
     }
@@ -95,6 +97,7 @@ RowLayout {
          onClicked:{
              gridviewroiControlSpace.visible = true
              gridviewcanvas.enabled = true
+             drawcanvas.enabled = false
 
          }
 

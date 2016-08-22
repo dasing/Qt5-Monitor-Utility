@@ -320,10 +320,15 @@ Rectangle {
             var stringList = window.rects[index-1].split(";")
             var sx = stringList[1]
             var sy = stringList[2]
-            var idx = Math.floor( sx/ gridviewcanvas.diffWidth ) +  gridviewcanvas.divWidth * Math.floor( sy/gridviewcanvas.diffHeight )
+            var idx = Math.ceil( sx/ gridviewcanvas.diffWidth ) +  gridviewcanvas.divWidth * Math.ceil( sy/gridviewcanvas.diffHeight )
+
+
+            console.log("x = " + sx )
+            console.log("i = " + Math.floor( sx/ gridviewcanvas.diffWidth ) )
+            console.log("j = " + Math.floor( sy/gridviewcanvas.diffHeight ) )
 
             gridviewcanvas.flag[idx] = 0
-            console.log("paint idx = " + idx)
+            console.log("unpaint idx = " + idx)
 
             window.rects.splice( index-1, 1 )
             gridviewcanvas.paraOnPaint = 2
