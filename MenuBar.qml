@@ -71,7 +71,7 @@ ColumnLayout{
 
             Component.onCompleted: {
 
-                //default page is ROI, index is 2
+                //default page is ROI
                 listView.currentIndex = defaultPageIndex
                 listView.currentItem.backgroundColor = hoveredBackgroundColor
                 listView.currentItem.textColor = pressedTextColor
@@ -128,6 +128,7 @@ ColumnLayout{
                                     text: name
                                     color: menuitem.textColor
                                     font.family: "sans-serif"
+                                    //anchors.verticalCenter: parent
                                 }
 
                             }

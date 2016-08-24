@@ -2,6 +2,9 @@ import QtQuick 2.0
 
 Item {
     id: root
+    property alias videoview: videoview
+
+
 //    width: 1400
 //    height: 720
     //anchors.fill: parent
@@ -13,6 +16,7 @@ Item {
         anchors.left: parent.left
         chartControl: chartInfo
         controlSpace: roiControlSpace
+        cameraSetting: cameraSetting
 
         width: 640
         height: 480

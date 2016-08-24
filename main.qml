@@ -46,6 +46,8 @@ Item {
         anchors.top: location.bottom
         anchors.topMargin: 30
         visible: false
+        //cameraID: roiPage.videoview.cameraId
+        //onCameraIDChanged: { console.log("cameraID changed to " + cameraID ) }
     }
 
     HeartBreathePage{
@@ -65,6 +67,8 @@ Item {
         anchors.top: location.bottom
         anchors.topMargin: 30
         visible: false
+        videoview.cameraSetting: settingPage
+
 
     }
 

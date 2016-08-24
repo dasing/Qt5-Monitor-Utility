@@ -10,6 +10,8 @@ Rectangle {
     property alias roicanvas: roicanvas
     property var chartControl: null
     property var controlSpace: null
+    property var cameraSetting: null
+    property var cameraId
 
 
     Component.onCompleted: {
@@ -24,6 +26,12 @@ Rectangle {
             roicanvas.clearData()
             filter.clearData()
         })
+
+        cameraSetting.changeCamera.connect( function( cameraID ){
+            camera.deviceId = cameraID
+        })
+
+
 
     }
 
@@ -74,6 +82,9 @@ Rectangle {
         captureMode: Camera.CaptureVideo
         viewfinder.resolution: Qt.size( 640, 480 );
 
+
+        onDeviceIdChanged: console.log("deviceID change to " + deviceId )
+
     }
 
     VideoOutput{
@@ -83,6 +94,7 @@ Rectangle {
         filters: [ filter ]
 
     }
+
 
 
 
