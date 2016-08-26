@@ -34,5 +34,6 @@
         <file>SystemFunctionPage.qml</file>
         <file>CameraTestPage.qml</file>
         <file>TestConfigPage.qml</file>
+        <file>test.mp4</file>
     </qresource>
 </RCC>

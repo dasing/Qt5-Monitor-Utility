@@ -8,8 +8,7 @@
 #include "framefilter.h"
 #include "framefilterrunnable.h"
 #include "analyzeresult.h"
-#include "selectionarealist.h"
-#include "selectionarea.h"
+#include "bcvencoder.h"
 
 int main(int argc, char *argv[])
 {
@@ -19,8 +18,8 @@ int main(int argc, char *argv[])
 
     qmlRegisterType<FrameFilter>("qmlvideofilter", 1, 0, "FrameFilter" );
     qmlRegisterType<AnalyzeResult>("qmlvideofilter", 1, 0, "AnalyzeResult");
-    qmlRegisterType<SelectionAreaList>("qmlroi", 1, 0, "SelectionAreaList");
-    qmlRegisterType<SelectionArea>( "qmlroi", 1, 0, "SelectionArea" );
+    qmlRegisterType<BCVEncoder>("qmlbcvencoder", 1, 0, "BCVEncoder");
+
 
     //engine.load(QUrl(QStringLiteral("qrc:/main.qml")));
 

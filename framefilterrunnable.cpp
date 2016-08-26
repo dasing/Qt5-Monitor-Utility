@@ -7,7 +7,7 @@
 #include <qglobal.h>
 #include <QTime>
 
-//using namespace cv;
+
 
 FrameFilterRunnable::FrameFilterRunnable( FrameFilter* filter ) : QVideoFilterRunnable(){
 
@@ -33,6 +33,10 @@ QVideoFrame FrameFilterRunnable::run( QVideoFrame *input, const QVideoSurfaceFor
 
 
     if( input->isValid() ){
+
+        //qDebug() << "width = " << input->width() << " , height = " << input->height();
+
+         //qDebug() << "ROI handleType is " << input->handleType();
 
         //Whole input
 //        result->m_xResult.append( computeData( 0, input->width()-1 ) );

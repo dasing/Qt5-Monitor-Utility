@@ -1,5 +1,5 @@
 import QtQuick 2.0
-import qmlroi 1.0
+
 
 Rectangle {
 

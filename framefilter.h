@@ -10,9 +10,8 @@ class FrameFilter: public QAbstractVideoFilter{
     Q_PROPERTY( int x_start READ x_start WRITE setX_start )
     Q_PROPERTY( int updateFlag READ updateFlag WRITE setUpdateFlag )
     Q_PROPERTY( QList<QString> rectList READ rectList WRITE setRectList )
+
 public:
-
-
     FrameFilter();
     QVideoFilterRunnable *createFilterRunnable();
     int x_start() const { return m_xStart; }

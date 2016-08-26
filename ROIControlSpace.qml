@@ -6,9 +6,6 @@ import QtQuick.Controls.Styles 1.4
 
 RowLayout {
 
-
-
-
     id: roiControl
 
     //alias

@@ -57,6 +57,8 @@ Item {
         anchors.top: location.bottom
         anchors.topMargin: 30
         visible: false
+        cameraSetting: settingPage
+
     }
 
     ROIPage{

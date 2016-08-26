@@ -79,11 +79,24 @@ Rectangle {
     Camera{
 
         id: camera
-        captureMode: Camera.CaptureVideo
+        //captureMode: Camera.CaptureVideo
         viewfinder.resolution: Qt.size( 640, 480 );
+        property int resolutionWidth: viewfinder.resolution.width
 
 
-        onDeviceIdChanged: console.log("deviceID change to " + deviceId )
+        onResolutionWidthChanged: {
+            /*Don't know why camera resolution will change and where it will change, thus modify it violently*/
+
+            //console.log("camera1 resolution chagned to " + resolutionWidth )
+            viewfinder.resolution = Qt.size( 640, 480 )
+        }
+
+        onDeviceIdChanged: {
+
+            viewfinder.resolution = Qt.size( 640, 480 )
+            console.log("deviceID change to " + deviceId )
+        }
+
 
     }
 
@@ -94,7 +107,6 @@ Rectangle {
         filters: [ filter ]
 
     }
-
 
 
 
