@@ -25,7 +25,11 @@ QVideoFrame bcvencoderrunable::run( QVideoFrame *input, const QVideoSurfaceForma
         qDebug() << "pixel format is " << input->pixelFormat();
         qDebug() << "handleType is " << input->handleType();
 
+
+        /*If source of the videoOuput is Media, then the handleType will be openGL texture ID which cannot be mapped,
+         * so should do more to process it, not finished yet*/
         if( input->handleType() == QAbstractVideoBuffer::GLTextureHandle ){
+
              GLuint texture;
              texture = input->handle().toUInt();
              f->glBindTexture(GL_TEXTURE_2D, texture);
@@ -52,26 +56,36 @@ QVideoFrame bcvencoderrunable::run( QVideoFrame *input, const QVideoSurfaceForma
 
         }else{
 
-                    bool mapResult = input->map(QAbstractVideoBuffer::ReadOnly);
-                    if( mapResult )
-                        printf("map succes\n");
-                    else
-                        printf("map error\n");
+            //handle type is "NO HANDLE"
+
+            bool mapResult = input->map(QAbstractVideoBuffer::ReadOnly);
+            if( !mapResult )
+                printf("map error\n");
+
+            QImage::Format imageFormat = QVideoFrame::imageFormatFromPixelFormat( input->pixelFormat() );
+            QImage img( input->width(), input->height(), imageFormat );
+            qDebug() << "imageFormat is " << imageFormat;
+            qDebug() << "img is " << img;
+
+            qDebug() << "plane 0 is " << input->bytesPerLine(0) ;
+            qDebug() << "plane 1 is " << input->bytesPerLine(1) ;
+            qDebug() << "plane 2 is " << input->bytesPerLine(2) ;
+
+            qDebug() << "plane 0 pointer is " << input->bits(0) ;
+            qDebug() << "plane 1 pointer is " << input->bits(1) ;
+
+            bool result = img.save("test.png");
+            if( result )
+                printf("file save successful\n");
+            else
+                printf("file save fail\n");
+
+            fflush(stdout);
 
 
-                    QImage::Format imageFormat = QVideoFrame::imageFormatFromPixelFormat( input->pixelFormat() );
-                    QImage img( input->bits(), input->width(), input->height(), input->bytesPerLine(), imageFormat );
 
-                    bool result = img.save("test.png");
-                    if( result )
-                        printf("file save successful\n");
-                    else
-                        printf("file save fail\n");
-
-                    fflush(stdout);
-
-                    if( input->isMapped() )
-                        input->unmap();
+            if( input->isMapped() )
+                input->unmap();
 
 
         }
