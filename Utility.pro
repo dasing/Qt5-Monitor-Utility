@@ -2,7 +2,7 @@ TEMPLATE = app
 
 QT += charts
 QT += qml quick multimedia gui  widgets opengl
-CONFIG += c++11
+CONFIG += c++17
 
 SOURCES += main.cpp \
     framefilter.cpp \

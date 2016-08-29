@@ -4,10 +4,40 @@
 #include <QOpenGLContext>
 #include <QOpenGLFunctions>
 #include <QGLWidget>
+#include <QDir>
+
+using namespace std;
 
 bcvencoderrunable::bcvencoderrunable( BCVEncoder* bcvencoder ): QVideoFilterRunnable()
 {
     m_bcvencoder = bcvencoder;
+}
+
+float clamp( float value, int lv, int hv ){
+
+    if( value < lv )
+        value = lv;
+    else if( value > hv )
+        value = hv;
+
+    return value;
+}
+
+QRgb convertYUVtoRGB( int y, int u, int v ){
+
+    float r = ( (float)y + 1.402f*(float)v );
+    float g = ( (float)y -  0.344f*(float)u - 0.714f*(float)v  );
+    float b = ( (float)y + 1.772f*(float)u );
+
+    int int_r = clamp( r, 0, 255 );
+    int int_g = clamp( g, 0, 255 );
+    int int_b = clamp( b, 0, 255 );
+//    qDebug() << "r = " << r;
+//    qDebug() << "g = " << g;
+//    qDebug() << "b = " << b;
+
+
+    return qRgb( int_r, int_g, int_b );
 }
 
 QVideoFrame bcvencoderrunable::run( QVideoFrame *input, const QVideoSurfaceFormat &surfaceFormat, RunFlags flags  ){
@@ -21,10 +51,6 @@ QVideoFrame bcvencoderrunable::run( QVideoFrame *input, const QVideoSurfaceForma
     if( input->isValid() ){
 
         QOpenGLFunctions *f = QOpenGLContext::currentContext()->functions();
-
-        qDebug() << "pixel format is " << input->pixelFormat();
-        qDebug() << "handleType is " << input->handleType();
-
 
         /*If source of the videoOuput is Media, then the handleType will be openGL texture ID which cannot be mapped,
          * so should do more to process it, not finished yet*/
@@ -53,65 +79,86 @@ QVideoFrame bcvencoderrunable::run( QVideoFrame *input, const QVideoSurfaceForma
                  printf("file save fail\n");
 
 
+        }else if( input->handleType() == QAbstractVideoBuffer::NoHandle ){
 
-        }else{
-
-            //handle type is "NO HANDLE"
 
             bool mapResult = input->map(QAbstractVideoBuffer::ReadOnly);
             if( !mapResult )
                 printf("map error\n");
 
-            QImage::Format imageFormat = QVideoFrame::imageFormatFromPixelFormat( input->pixelFormat() );
-            QImage img( input->width(), input->height(), imageFormat );
-            qDebug() << "imageFormat is " << imageFormat;
-            qDebug() << "img is " << img;
+            if( input->pixelFormat()  == QVideoFrame::Format_NV12 ){
 
-            qDebug() << "plane 0 is " << input->bytesPerLine(0) ;
-            qDebug() << "plane 1 is " << input->bytesPerLine(1) ;
-            qDebug() << "plane 2 is " << input->bytesPerLine(2) ;
+                QImage img( input->width(), input->height(), QImage::Format_ARGB32_Premultiplied );
+                img.fill(QColor(Qt::white).rgb());
 
-            qDebug() << "plane 0 pointer is " << input->bits(0) ;
-            qDebug() << "plane 1 pointer is " << input->bits(1) ;
+                int size = input->width() * input->height();
+                int width = input->width();
+                qDebug() << "width = " << img.width();
+                qDebug() << "height = " << img.height();
+                qDebug() << "size = " << size;
+                int count = 0;
+                for( int i=0, k=0, y=0, x=0; i< size; i+=2, k+=2 ){
 
-            bool result = img.save("test.png");
-            if( result )
-                printf("file save successful\n");
-            else
-                printf("file save fail\n");
+                    //i ->pointer of Y data
+                    //k ->pointer of UV data
+                    //x, y ->position of image
 
-            fflush(stdout);
+                    int y1 = input->bits(0)[i];
+                    int y2 = input->bits(0)[i+1];
+                    int y3 = input->bits(0)[i+input->width()];
+                    int y4 = input->bits(0)[i+input->width()+1];
+
+                    int u = input->bits(1)[k];
+                    int v = input->bits(1)[k+1];
+                    u -= 128;
+                    v -= 128;
 
 
+                    img.setPixel( x, y, convertYUVtoRGB( y1, u, v ) );
+                    img.setPixel( x, y+1, convertYUVtoRGB( y2, u, v ) );
+                    img.setPixel( x+1, y, convertYUVtoRGB( y3, u, v ) );
+                    img.setPixel( x+1, y+1, convertYUVtoRGB( y4, u, v ) );
 
-            if( input->isMapped() )
-                input->unmap();
+                    if( i!=0 && ((i+2) % input->width()) == 0 ){
+                        //cross a line
+                        i+= width;
+                    }
+
+                    x+=2;
+                    count++;
+                    if( x == width ){
+                        x=0;
+                        y+=2;
+                    }
+
+                }
+
+                QString dir =  QDir::currentPath().append("/test.png");
+                qDebug() << "save dir = " << dir;
+
+                bool result = img.save( dir );
+                if( result )
+                    printf("file save successful\n");
+                else
+                    printf("file save fail\n");
+
+                fflush(stdout);
+
+                if( input->isMapped() )
+                    input->unmap();
 
 
+            }else{
+                qDebug() << "non support image format " << input->pixelFormat();
+            }
+
+
+        }else{
+            qDebug() << " non supprt handle type " << input->handleType();
         }
 
 
-
-//        bool mapResult = input->map(QAbstractVideoBuffer::ReadOnly);
-//        if( mapResult )
-//            printf("map succes\n");
-//        else
-//            printf("map error\n");
-
-
-//        QImage::Format imageFormat = QVideoFrame::imageFormatFromPixelFormat( input->pixelFormat() );
-//        QImage img( input->bits(), input->width(), input->height(), input->bytesPerLine(), imageFormat );
-
-//        bool result = img.save("test.png");
-//        if( result )
-//            printf("file save successful\n");
-//        else
-//            printf("file save fail\n");
-
         fflush(stdout);
-
-        //input->unmap();
-
         return *input;
 
     }
