@@ -154,8 +154,6 @@ ColumnLayout{
                         listView.currentItem.iconColor = hoveredSource
 
 
-
-
                     }
 
                 }

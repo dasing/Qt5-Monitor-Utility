@@ -69,7 +69,11 @@ Item {
        text: "Start"
        anchors.left: parent.left
        anchors.top: cameraSpace.bottom
-       onClicked: bcvencoder.active = true
+       onClicked: {
+           bcvencoder.active = true
+           bcvencoder.initializeBCVEncoder();
+
+       }
    }
 
    Button{
@@ -77,7 +81,10 @@ Item {
        text: "Stop"
        anchors.left: startButton.right
        anchors.top: cameraSpace.bottom
-       onClicked: bcvencoder.active = false
+       onClicked: {
+           bcvencoder.active = false
+           //bcvencoder.resetBCVEncoder()
+       }
    }
 
 //    ChartSpace{

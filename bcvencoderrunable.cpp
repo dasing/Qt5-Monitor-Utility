@@ -1,4 +1,5 @@
 #include "bcvencoderrunable.h"
+#include "bcv_file.h"
 #include<QDebug>
 #include <QOpenGLFramebufferObject>
 #include <QOpenGLContext>
@@ -32,10 +33,6 @@ QRgb convertYUVtoRGB( int y, int u, int v ){
     int int_r = clamp( r, 0, 255 );
     int int_g = clamp( g, 0, 255 );
     int int_b = clamp( b, 0, 255 );
-//    qDebug() << "r = " << r;
-//    qDebug() << "g = " << g;
-//    qDebug() << "b = " << b;
-
 
     return qRgb( int_r, int_g, int_b );
 }
@@ -45,8 +42,23 @@ QVideoFrame bcvencoderrunable::run( QVideoFrame *input, const QVideoSurfaceForma
     Q_UNUSED(surfaceFormat);
     Q_UNUSED(flags);
 
-    //printf("count = %d\n", m_bcvencoder->count );
-    //m_bcvencoder->count++;
+    //initialize frame header
+    QDataStream out(&m_bcvencoder->file);
+    _bcv_video_frame frameHeader;
+    frameHeader.index = (uint32_t)m_bcvencoder->count;
+    frameHeader.hr_bpm = (int16_t)120;
+    frameHeader.rr_bpm = (int16_t)60;
+    frameHeader.interval = (uint32_t)10;
+    frameHeader.lamda = (uint16_t) 3;
+    frameHeader.eb_ts = (int8_t)0;
+
+    out << frameHeader.index;
+    out << frameHeader.hr_bpm;
+    out << frameHeader.rr_bpm;
+    out << frameHeader.interval;
+    out << frameHeader.lamda;
+    out << frameHeader.eb_ts;
+    out << '\n';
 
     if( input->isValid() ){
 
@@ -119,21 +131,26 @@ QVideoFrame bcvencoderrunable::run( QVideoFrame *input, const QVideoSurfaceForma
                     img.setPixel( x+1, y, convertYUVtoRGB( y3, u, v ) );
                     img.setPixel( x+1, y+1, convertYUVtoRGB( y4, u, v ) );
 
+                    out << convertYUVtoRGB( y1, u, v );
+                    out << convertYUVtoRGB( y2, u, v );
+                    out << convertYUVtoRGB( y3, u, v );
+                    out << convertYUVtoRGB( y4, u, v );
+
                     if( i!=0 && ((i+2) % input->width()) == 0 ){
                         //cross a line
                         i+= width;
                     }
 
-                    x+=2;
+                    x += 2;
                     count++;
                     if( x == width ){
-                        x=0;
-                        y+=2;
+                        x = 0;
+                        y += 2;
                     }
 
                 }
 
-                QString dir =  QDir::currentPath().append("/test.png");
+                QString dir =  QDir::currentPath().append( "/test" +QString::number( m_bcvencoder->count) + ".png" );
                 qDebug() << "save dir = " << dir;
 
                 bool result = img.save( dir );
@@ -159,6 +176,11 @@ QVideoFrame bcvencoderrunable::run( QVideoFrame *input, const QVideoSurfaceForma
 
 
         fflush(stdout);
+
+        out << '\n'; //end symbol
+        //printf("count = %d\n", m_bcvencoder->count );
+        m_bcvencoder->count++;
+
         return *input;
 
     }
