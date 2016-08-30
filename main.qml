@@ -102,6 +102,15 @@ Item {
         visible: false
     }
 
+    LoadFilePage{
+        id: loadFilePage
+        anchors.left: menu.right
+        anchors.leftMargin: 30
+        anchors.top: location.bottom
+        anchors.topMargin: 30
+        visible: false
+    }
+
     states:[
 
         State{
@@ -112,6 +121,7 @@ Item {
             PropertyChanges {  target: testconfigPage; visible: false }
             PropertyChanges {  target: systemFunctionPage; visible: false }
             PropertyChanges {  target: cameraTestPage; visible: false }
+            PropertyChanges {  target: loadFilePage; visible: false }
         },
         State{
             name: "HeartBeat and Breathe"
@@ -121,6 +131,7 @@ Item {
             PropertyChanges {  target: testconfigPage; visible: false }
             PropertyChanges {  target: systemFunctionPage; visible: false }
             PropertyChanges {  target: cameraTestPage; visible: false }
+            PropertyChanges {  target: loadFilePage; visible: false }
 
         },
         State{
@@ -131,6 +142,7 @@ Item {
             PropertyChanges {  target: testconfigPage; visible: false }
             PropertyChanges {  target: systemFunctionPage; visible: false }
             PropertyChanges {  target: cameraTestPage; visible: false }
+            PropertyChanges {  target: loadFilePage; visible: false }
 
         },
         State{
@@ -141,6 +153,7 @@ Item {
             PropertyChanges {  target: testconfigPage; visible: true }
             PropertyChanges {  target: systemFunctionPage; visible: false }
             PropertyChanges {  target: cameraTestPage; visible: false }
+            PropertyChanges {  target: loadFilePage; visible: false }
 
         },
         State{
@@ -151,6 +164,7 @@ Item {
             PropertyChanges {  target: testconfigPage; visible: false }
             PropertyChanges {  target: systemFunctionPage; visible: true }
             PropertyChanges {  target: cameraTestPage; visible: false }
+            PropertyChanges {  target: loadFilePage; visible: false }
 
         },
         State{
@@ -161,6 +175,19 @@ Item {
             PropertyChanges {  target: testconfigPage; visible: false }
             PropertyChanges {  target: systemFunctionPage; visible: false }
             PropertyChanges {  target: cameraTestPage; visible: true }
+            PropertyChanges {  target: loadFilePage; visible: false }
+
+        },
+
+        State{
+            name: "Load File"
+            PropertyChanges {  target: settingPage; visible: false }
+            PropertyChanges {  target: heartBreathePage; visible: false }
+            PropertyChanges {  target: roiPage; visible: false }
+            PropertyChanges {  target: testconfigPage; visible: false }
+            PropertyChanges {  target: systemFunctionPage; visible: false }
+            PropertyChanges {  target: cameraTestPage; visible: false }
+            PropertyChanges {  target: loadFilePage; visible: true }
 
         }
 

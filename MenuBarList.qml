@@ -45,4 +45,11 @@ ListModel {
         hoveredSource: "qrc:/image/camera_white.png"
         index: 5
     }
+
+    ListElement{
+        name: "Load File"
+        imgSource: "qrc:/image/loadFile_red.png"
+        hoveredSource: "qrc:/image/loadFile_white.png"
+        index: 6
+    }
 }

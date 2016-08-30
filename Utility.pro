@@ -11,7 +11,8 @@ SOURCES += main.cpp \
     selectionarea.cpp \
     selectionarealist.cpp \
     bcvencoder.cpp \
-    bcvencoderrunable.cpp
+    bcvencoderrunable.cpp \
+    bcvdecoder.cpp
 
 RESOURCES += qml.qrc
 
@@ -29,7 +30,8 @@ HEADERS += \
     selectionarealist.h \
     bcvencoder.h \
     bcvencoderrunable.h \
-    bcv_file.h
+    bcv_file.h \
+    bcvdecoder.h
 
 #win32:CONFIG(release, debug|release): LIBS += -L$$PWD/../../../usr/local/Cellar/opencv/2.4.13/lib/release/ -lopencv_core.2.4.13
 #else:win32:CONFIG(debug, debug|release): LIBS += -L$$PWD/../../../usr/local/Cellar/opencv/2.4.13/lib/debug/ -lopencv_core.2.4.13

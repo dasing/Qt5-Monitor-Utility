@@ -35,5 +35,8 @@
         <file>CameraTestPage.qml</file>
         <file>TestConfigPage.qml</file>
         <file>test.mp4</file>
+        <file>image/loadFile_red.png</file>
+        <file>LoadFilePage.qml</file>
+        <file>image/loadFile_white.png</file>
     </qresource>
 </RCC>

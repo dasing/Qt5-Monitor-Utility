@@ -9,6 +9,7 @@
 #include "framefilterrunnable.h"
 #include "analyzeresult.h"
 #include "bcvencoder.h"
+#include "bcvdecoder.h"
 
 int main(int argc, char *argv[])
 {
@@ -19,6 +20,7 @@ int main(int argc, char *argv[])
     qmlRegisterType<FrameFilter>("qmlvideofilter", 1, 0, "FrameFilter" );
     qmlRegisterType<AnalyzeResult>("qmlvideofilter", 1, 0, "AnalyzeResult");
     qmlRegisterType<BCVEncoder>("qmlbcvencoder", 1, 0, "BCVEncoder");
+    qmlRegisterType<BCVDecoder>("qmlbcvdecoder", 1, 0, "BCVDecoder");
 
 
     //engine.load(QUrl(QStringLiteral("qrc:/main.qml")));
