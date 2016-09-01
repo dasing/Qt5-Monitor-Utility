@@ -6,12 +6,10 @@ import QtQuick.Controls 1.4
 
 Item {
 
-    property var cameraSetting
-    Component.onCompleted: {
-        cameraSetting.changeCamera.connect( function( cameraID ){
-            camera2.deviceId = cameraID
-        })
-    }
+
+    property alias bcvEncoder: bcvencoder
+
+
 
     Rectangle{
 
@@ -21,7 +19,7 @@ Item {
 
         anchors.left: parent.left
         anchors.top: parent.top
-        color: "red"
+        color: "transparent"
 
         width: 640
         height: 480
@@ -39,28 +37,28 @@ Item {
         //           autoPlay: true
         //   }
 
-        Camera{
+//        Camera{
 
-            id: camera2
-            //captureMode: Camera.CaptureVideo
-            viewfinder.resolution: Qt.size( 640, 480 );
-            property int resolutionWidth: viewfinder.resolution.width
+//            id: camera2
+//            //captureMode: Camera.CaptureVideo
+//            viewfinder.resolution: Qt.size( 640, 480 );
+//            property int resolutionWidth: viewfinder.resolution.width
 
-            onResolutionWidthChanged: {
-                //console.log("camera2 resolutionWdith chagned to " + resolutionWidth )
-                viewfinder.resolution = Qt.size( 640, 480 )
-            }
+//            onResolutionWidthChanged: {
+//                //console.log("camera2 resolutionWdith chagned to " + resolutionWidth )
+//                viewfinder.resolution = Qt.size( 640, 480 )
+//            }
 
-            //onDeviceIdChanged: console.log("deviceID change to " + deviceId )
+//            //onDeviceIdChanged: console.log("deviceID change to " + deviceId )
 
-        }
+//        }
 
-       VideoOutput {
-           id: videoOutput
-           source: camera2
-           anchors.fill: parent
-           filters: [ bcvencoder ]
-       }
+//       VideoOutput {
+//           id: videoOutput
+//           source: camera2
+//           anchors.fill: parent
+//           filters: [ bcvencoder ]
+//       }
 
     }
 

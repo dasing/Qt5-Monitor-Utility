@@ -6,12 +6,13 @@ import qmlvideofilter 1.0
 Rectangle {
 
     id: window
-    property alias filter: filter
+    property alias frameFilter: filter
     property alias roicanvas: roicanvas
     property var chartControl: null
     property var controlSpace: null
     property var cameraSetting: null
     property var cameraId
+    color: "transparent"
 
 
     Component.onCompleted: {
@@ -27,9 +28,7 @@ Rectangle {
             filter.clearData()
         })
 
-        cameraSetting.changeCamera.connect( function( cameraID ){
-            camera.deviceId = cameraID
-        })
+
 
 
 
@@ -76,37 +75,39 @@ Rectangle {
 
     }
 
-    Camera{
+//    Camera{
 
-        id: camera
-        //captureMode: Camera.CaptureVideo
-        viewfinder.resolution: Qt.size( 640, 480 );
-        property int resolutionWidth: viewfinder.resolution.width
-
-
-        onResolutionWidthChanged: {
-            /*Don't know why camera resolution will change and where it will change, thus modify it violently*/
-
-            //console.log("camera1 resolution chagned to " + resolutionWidth )
-            viewfinder.resolution = Qt.size( 640, 480 )
-        }
-
-        onDeviceIdChanged: {
-
-            viewfinder.resolution = Qt.size( 640, 480 )
-            console.log("deviceID change to " + deviceId )
-        }
+//        id: camera
+//        //captureMode: Camera.CaptureVideo
+//        viewfinder.resolution: Qt.size( 640, 480 );
+//        property int resolutionWidth: viewfinder.resolution.width
 
 
-    }
+//        onResolutionWidthChanged: {
+//            /*Don't know why camera resolution will change and where it will change, thus modify it violently*/
 
-    VideoOutput{
+//            //console.log("camera1 resolution chagned to " + resolutionWidth )
+//            viewfinder.resolution = Qt.size( 640, 480 )
+//        }
 
-        anchors.fill: parent
-        source: camera
-        filters: [ filter ]
+//        onDeviceIdChanged: {
 
-    }
+//            viewfinder.resolution = Qt.size( 640, 480 )
+//            console.log("deviceID change to " + deviceId )
+//        }
+
+
+//    }
+
+//    VideoOutput{
+
+//        anchors.fill: parent
+//        source: camera
+//        filters: [ filter ]
+
+//    }
+
+
 
 
 

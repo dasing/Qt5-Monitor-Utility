@@ -50,7 +50,7 @@ void BCVEncoder::initializeBCVEncoder(){
 
     _bcv_video_header header;
     //strcat( header.magic, "biotrump" );
-    memcpy( header.magic,"biotrump", sizeof(uint8_t) *8 );
+    memcpy( header.magic,"biotrump", sizeof(uint8_t) *8 );  
     header.version = (uint32_t)1;
     header.width = (uint16_t)640;
     header.height = (uint16_t)480;
@@ -64,6 +64,7 @@ void BCVEncoder::initializeBCVEncoder(){
 
     //write dataStructure to file
     out << header.magic;
+    qDebug() << "currSize = " << file.size();
     out << header.version;
     out << header.width;
     out << header.height;

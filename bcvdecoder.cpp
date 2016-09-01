@@ -28,10 +28,15 @@ void BCVDecoder::decodeFile( QString filePath ){
     }
 
     QDataStream in(&file);
-    quint8 magic[BCV_MAGIC_STR_LEN];
-    //sin >> magic;
+    char magic[BCV_MAGIC_STR_LEN];
+    char version[4];
 
-    qDebug() << "magic = " << magic;
+    int result = in.readRawData( magic, 1 );
+    int result2 = in.readRawData( version, 4 );
+    printf("magic = %s\n", reinterpret_cast<uint8_t*>(magic) );
+    printf("version = %d\n", reinterpret_cast<uint32_t*>(version));
+    printf("result = %d\n", result );
+    //qDebug() << "magic = " << magic;
 
 
 }

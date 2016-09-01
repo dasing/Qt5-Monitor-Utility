@@ -158,9 +158,8 @@ ColumnLayout{
                         listView.currentItem.textColor = listView.pressedTextColor
                         listView.currentItem.iconColor = hoveredSource
 
+                        //update preImageSource
                         listView.preImageSource = imgSource
-
-
 
                     }
 

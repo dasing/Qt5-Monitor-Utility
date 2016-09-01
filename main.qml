@@ -37,6 +37,19 @@ Item {
 
     }
 
+    CameraVideoOutput{
+        id: cameraOutput
+        anchors.left: menu.right
+        anchors.top: location.bottom
+        anchors.leftMargin: 30
+        anchors.topMargin: 30
+        cameraSetting: settingPage
+        width: 640
+        height: 480
+        visible: true
+        videoOutput.filters: [ heartBreathePage.bcvEncoder, roiPage.videoview.frameFilter ]
+    }
+
 
     //page
     SettingPage{
@@ -57,7 +70,7 @@ Item {
         anchors.top: location.bottom
         anchors.topMargin: 30
         visible: false
-        cameraSetting: settingPage
+
 
     }
 
@@ -122,6 +135,7 @@ Item {
             PropertyChanges {  target: systemFunctionPage; visible: false }
             PropertyChanges {  target: cameraTestPage; visible: false }
             PropertyChanges {  target: loadFilePage; visible: false }
+            PropertyChanges {  target: cameraOutput; visible: false }
         },
         State{
             name: "HeartBeat and Breathe"
@@ -132,6 +146,7 @@ Item {
             PropertyChanges {  target: systemFunctionPage; visible: false }
             PropertyChanges {  target: cameraTestPage; visible: false }
             PropertyChanges {  target: loadFilePage; visible: false }
+            PropertyChanges {  target: cameraOutput; visible: true }
 
         },
         State{
@@ -143,6 +158,7 @@ Item {
             PropertyChanges {  target: systemFunctionPage; visible: false }
             PropertyChanges {  target: cameraTestPage; visible: false }
             PropertyChanges {  target: loadFilePage; visible: false }
+            PropertyChanges {  target: cameraOutput; visible: true }
 
         },
         State{
@@ -154,6 +170,7 @@ Item {
             PropertyChanges {  target: systemFunctionPage; visible: false }
             PropertyChanges {  target: cameraTestPage; visible: false }
             PropertyChanges {  target: loadFilePage; visible: false }
+            PropertyChanges {  target: cameraOutput; visible: false }
 
         },
         State{
@@ -165,6 +182,7 @@ Item {
             PropertyChanges {  target: systemFunctionPage; visible: true }
             PropertyChanges {  target: cameraTestPage; visible: false }
             PropertyChanges {  target: loadFilePage; visible: false }
+            PropertyChanges {  target: cameraOutput; visible: false }
 
         },
         State{
@@ -176,6 +194,7 @@ Item {
             PropertyChanges {  target: systemFunctionPage; visible: false }
             PropertyChanges {  target: cameraTestPage; visible: true }
             PropertyChanges {  target: loadFilePage; visible: false }
+            PropertyChanges {  target: cameraOutput; visible: false }
 
         },
 
@@ -188,6 +207,7 @@ Item {
             PropertyChanges {  target: systemFunctionPage; visible: false }
             PropertyChanges {  target: cameraTestPage; visible: false }
             PropertyChanges {  target: loadFilePage; visible: true }
+            PropertyChanges {  target: cameraOutput; visible: false }
 
         }
 

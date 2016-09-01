@@ -21,7 +21,7 @@ Item {
         width: 640
         height: 480
 
-        filter.onFinished: {
+        frameFilter.onFinished: {
             chartspace.x_result = res.x_result
             chartspace.y_result = res.y_result
         }
