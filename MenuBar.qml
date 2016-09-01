@@ -64,10 +64,12 @@ ColumnLayout{
             delegate: menuitemdelegate
             property int defaultPageIndex: 2
             property string defaultPageHoveredSource: "qrc:/image/square_white.png"
+            property string defaultPageImaageSource: "qrc:/image/square_red.png"
             property color defaultTextColor: "#000000"
             property color hoveredTextColor: "#ffffff"
             property color pressedTextColor: "#ffffff"
             property color hoveredBackgroundColor: "#e55175"
+            property string preImageSource
 
             Component.onCompleted: {
 
@@ -76,18 +78,20 @@ ColumnLayout{
                 listView.currentItem.backgroundColor = hoveredBackgroundColor
                 listView.currentItem.textColor = pressedTextColor
                 listView.currentItem.iconColor = defaultPageHoveredSource
+                preImageSource = listView.defaultPageImaageSource
+
             }
 
             Component{
 
                 id: menuitemdelegate
 
+
                 Button{
                     id: menuitem
                     property color backgroundColor: hovered ? listView.hoveredBackgroundColor : "transparent"
                     property color textColor: hovered ? listView.hoveredTextColor : listView.defaultTextColor
                     property string iconColor: hovered ? hoveredSource : imgSource
-
 
                     style: ButtonStyle{
 
@@ -139,10 +143,11 @@ ColumnLayout{
 
                     onClicked: {
 
-                        //recover background color first
+
+                        //recover pre-selection's background color first
                         listView.currentItem.backgroundColor = "transparent"
                         listView.currentItem.textColor = listView.defaultTextColor
-                        listView.currentItem.iconColor = imgSource
+                        listView.currentItem.iconColor = listView.preImageSource
 
                         //change state in main.qml
                         currPage = name
@@ -152,6 +157,9 @@ ColumnLayout{
                         listView.currentItem.backgroundColor = listView.hoveredBackgroundColor
                         listView.currentItem.textColor = listView.pressedTextColor
                         listView.currentItem.iconColor = hoveredSource
+
+                        listView.preImageSource = imgSource
+
 
 
                     }
