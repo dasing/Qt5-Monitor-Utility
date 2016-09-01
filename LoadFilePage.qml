@@ -3,6 +3,7 @@ import QtQuick.Controls 1.2
 import QtQuick.Dialogs 1.1
 import QtQuick.Layouts 1.1
 import QtQuick.Window 2.0
+import qmlbcvdecoder 1.0
 
 Item {
 
@@ -21,6 +22,11 @@ Item {
             selectFolder: false
             nameFilters: [ "(*.bcv)" ]
             selectedNameFilter: "(*.bcv)"
+
+            onFileUrlChanged: {
+                console.log("here!")
+                decoder.decodeFile(fileUrl)
+            }
         }
 
         ScrollView {
@@ -51,6 +57,10 @@ Item {
                    }
               }
          }
+
+        BCVDecoder{
+            id: decoder
+        }
 
 
 

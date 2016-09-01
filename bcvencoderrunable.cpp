@@ -105,9 +105,9 @@ QVideoFrame bcvencoderrunable::run( QVideoFrame *input, const QVideoSurfaceForma
 
                 int size = input->width() * input->height();
                 int width = input->width();
-                qDebug() << "width = " << img.width();
-                qDebug() << "height = " << img.height();
-                qDebug() << "size = " << size;
+//                qDebug() << "width = " << img.width();
+//                qDebug() << "height = " << img.height();
+//                qDebug() << "size = " << size;
                 int count = 0;
                 for( int i=0, k=0, y=0, x=0; i< size; i+=2, k+=2 ){
 
@@ -151,12 +151,10 @@ QVideoFrame bcvencoderrunable::run( QVideoFrame *input, const QVideoSurfaceForma
                 }
 
                 QString dir =  QDir::currentPath().append( "/test" +QString::number( m_bcvencoder->count) + ".png" );
-                qDebug() << "save dir = " << dir;
+                //qDebug() << "save dir = " << dir;
 
                 bool result = img.save( dir );
-                if( result )
-                    printf("file save successful\n");
-                else
+                if( !result )
                     printf("file save fail\n");
 
                 fflush(stdout);
