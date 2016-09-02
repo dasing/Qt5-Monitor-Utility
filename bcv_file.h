@@ -24,7 +24,7 @@
 #pragma pack(push, 1)
 typedef struct _bcv_video_header{
 	uint8_t magic[BCV_MAGIC_STR_LEN];		//8 bytes: "biotrump"
-	uint32_t version;	//
+    uint32_t version;
 	uint16_t width;
 	uint16_t height;
 	float fps;
@@ -51,7 +51,7 @@ typedef struct _bcv_video_header{
 	uint8_t nir_baseline;
 	uint8_t nir_channels;	//total NIR wavelengths
 	//v0.70 the used wavelengths like 730nm, 850nm, 940nm, unit is "nm"	
-	uint16_t *nir_lambda;	
+    uint8_t nir_lambda[8];
 } BCV_VIDEO_HEADER, *PBCV_VIDEO_HEADER;
 
 /*32 bytes frame header*/

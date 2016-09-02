@@ -16,7 +16,6 @@ Item {
         anchors.left: parent.left
         chartControl: chartInfo
         controlSpace: roiControlSpace
-        //cameraSetting: cameraSetting
 
         width: 640
         height: 480

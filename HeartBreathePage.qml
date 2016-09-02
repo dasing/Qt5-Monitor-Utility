@@ -10,11 +10,9 @@ Item {
     property alias bcvEncoder: bcvencoder
 
 
-
     Rectangle{
 
-        /*Maybe this Rectangle can be combined by VideoView.qml*/
-
+        //background of CameraVideoOutput
         id: cameraSpace
 
         anchors.left: parent.left
@@ -30,35 +28,6 @@ Item {
             active: false
 
         }
-
-        //    MediaPlayer {
-        //           id: player
-        //           source: "qrc:/test.mp4"
-        //           autoPlay: true
-        //   }
-
-//        Camera{
-
-//            id: camera2
-//            //captureMode: Camera.CaptureVideo
-//            viewfinder.resolution: Qt.size( 640, 480 );
-//            property int resolutionWidth: viewfinder.resolution.width
-
-//            onResolutionWidthChanged: {
-//                //console.log("camera2 resolutionWdith chagned to " + resolutionWidth )
-//                viewfinder.resolution = Qt.size( 640, 480 )
-//            }
-
-//            //onDeviceIdChanged: console.log("deviceID change to " + deviceId )
-
-//        }
-
-//       VideoOutput {
-//           id: videoOutput
-//           source: camera2
-//           anchors.fill: parent
-//           filters: [ bcvencoder ]
-//       }
 
     }
 
@@ -81,7 +50,7 @@ Item {
        anchors.top: cameraSpace.bottom
        onClicked: {
            bcvencoder.active = false
-           //bcvencoder.resetBCVEncoder()
+           bcvencoder.resetBCVEncoder()
        }
    }
 

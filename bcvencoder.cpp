@@ -49,22 +49,24 @@ void BCVEncoder::initializeBCVEncoder(){
     count = 0; //parameter which notes for Image number stored in bcvfile
 
     _bcv_video_header header;
-    //strcat( header.magic, "biotrump" );
-    memcpy( header.magic,"biotrump", sizeof(uint8_t) *8 );  
-    header.version = (uint32_t)1;
+
+    memcpy( header.magic,"biotrump", sizeof(uint8_t)*8 );
+    header.version = (uint32_t)195;
     header.width = (uint16_t)640;
     header.height = (uint16_t)480;
-    header.fps = 300.1;
+    header.fps = 300.1f;
     header.pix_fmt = (uint32_t)1; //ARGB8888
     header.total_frames = (uint16_t)0;
     header.date_year = (int16_t)year;
     header.date_mmdd = ( mon << 8 ) + day;
     header.date_hhmin = ( hour << 8 ) + min;
     header.date_sec = (int16_t) sec;
+    header.nir_baseline = (uint8_t)'c';
+    header.nir_channels = (uint8_t)'c';
+    memset( header.nir_lambda, '0', sizeof(uint8_t) * 214 ); // 214 = 256 - 42 (meaningful information )
 
     //write dataStructure to file
-    out << header.magic;
-    qDebug() << "currSize = " << file.size();
+    out.writeRawData((const char*)header.magic, 8 );
     out << header.version;
     out << header.width;
     out << header.height;
@@ -75,7 +77,13 @@ void BCVEncoder::initializeBCVEncoder(){
     out << header.date_mmdd;
     out << header.date_hhmin;
     out << header.date_sec;
-    out << '\n'; //end symbol
+    out << header.nir_baseline;
+    out << header.nir_channels;
+    out.writeRawData((const char*)header.nir_lambda, 214 );
+
+    printf("size of file = %lu\n" , file.size() );
+
+
 
 //Debug
 //    cout << header.magic;
@@ -91,6 +99,7 @@ void BCVEncoder::initializeBCVEncoder(){
 //    cout << header.date_sec;
 //    cout << "month = " << (header.date_mmdd >> 8 );
 //    cout << "day = " << (header.date_mmdd & 0xff );
+//    cout << "debug : nir_lambda = " << *(header.nir_lambda) << endl;
 
 }
 
@@ -101,6 +110,9 @@ void BCVEncoder::resetBCVEncoder(){
 
     //reset parameter and close file
     count = 0;
+    if ( !file.flush() )
+        printf("flush error\n");
+
     file.close();
 }
 
