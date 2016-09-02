@@ -12,8 +12,11 @@ public:
     BCVDecoder();
     Q_INVOKABLE void decodeFile( QString filePath );
 
-private:
-    int m_flag;
+signals:
+    void sendVideoHeaderInfo( QString videoHeaderStruct );
+//    void sendFrameHeaderInfo( QString frameHeaderStruct );
+//    void sendImage( QImage image );
+
 };
 
 #endif // BCVDECODER_H

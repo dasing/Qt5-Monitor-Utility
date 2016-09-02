@@ -11,11 +11,10 @@
 #define BCV_MAGIC_STR_LEN		(8)
 
 BCVDecoder::BCVDecoder(){
-    //printf("construct bcvdecoder");
-    m_flag = 0;
+
 }
 
-void decodeVideoHeader( QDataStream& in, _bcv_video_header* header ){
+QString decodeVideoHeader( QDataStream& in, _bcv_video_header* header ){
 
     in.readRawData( (char*)header->magic, 8 );
     in >> header->version;
@@ -28,9 +27,21 @@ void decodeVideoHeader( QDataStream& in, _bcv_video_header* header ){
     in >> header->date_mmdd;
     in >> header->date_hhmin;
     in >> header->date_sec;
+    in.readRawData( (char*)header->cam_name, 16 );
     in >> header->nir_baseline;
     in >> header->nir_channels;
-    in.readRawData( (char*)header->nir_lambda, 214 ); // 214 = 256 - 42
+    in.readRawData( (char*)header->nir_lambda, 198 ); // 198 = 256 - 58
+
+    int mon = ( header->date_mmdd >> 8 );
+    int day =  (header->date_mmdd & 0xff );
+    int hour = (header->date_hhmin >> 8 );
+    int min = (header->date_hhmin & 0xff );
+
+    QString result = QString::number(header->version) + ";" + QString::number(header->width) + ";" + QString::number(header->height) + ";" +
+                     QString::number(header->fps) + ";" + QString::number(header->pix_fmt) + ";" + QString::number(header->total_frames) + ";" +
+                     QString::number(header->date_year) + ";" + QString::number(mon) + ";" + QString::number(day) + ";" + QString::number(hour) + ";" +
+                     QString::number(min) + ";" + QString::number(header->date_sec) + ";" + QString((char*)header->cam_name) + ";" + QString(header->nir_baseline) + ";" +
+                     QString(header->nir_channels);
 
 
         //OUTPUT DEBUG
@@ -57,6 +68,8 @@ void decodeVideoHeader( QDataStream& in, _bcv_video_header* header ){
 //        cout << "sec0 = " << (header->date_sec >> 8 ) << endl;
 //        cout << "sec1 = " << (header->date_sec & 0xff ) << endl;
 
+    return result;
+
 }
 
 
@@ -76,7 +89,8 @@ void BCVDecoder::decodeFile( QString filePath ){
 
     QDataStream in(&file);
     _bcv_video_header fileHeader;
-    decodeVideoHeader( in, &fileHeader );
+    QString result = decodeVideoHeader( in, &fileHeader );
+    emit sendVideoHeaderInfo( result );
 
 
 }

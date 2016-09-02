@@ -51,7 +51,7 @@ typedef struct _bcv_video_header{
 	uint8_t nir_baseline;
 	uint8_t nir_channels;	//total NIR wavelengths
 	//v0.70 the used wavelengths like 730nm, 850nm, 940nm, unit is "nm"	
-    uint8_t nir_lambda[8];
+    uint8_t nir_lambda[198]; //198 = 256 - 58 ( size of meaningful information )
 } BCV_VIDEO_HEADER, *PBCV_VIDEO_HEADER;
 
 /*32 bytes frame header*/

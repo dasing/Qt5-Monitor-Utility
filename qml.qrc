@@ -39,5 +39,6 @@
         <file>LoadFilePage.qml</file>
         <file>image/loadFile_white.png</file>
         <file>CameraVideoOutput.qml</file>
+        <file>Gallery.qml</file>
     </qresource>
 </RCC>

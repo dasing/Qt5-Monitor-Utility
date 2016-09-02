@@ -40,6 +40,7 @@ void BCVEncoder::initializeBCVEncoder(){
 
     //Open File
     file.setFileName(fileName);
+    //WARNING: if application is not run on Qt creator, file storing path may change and thus cause open error
     QDir::setCurrent("/Users/Dasing/Desktop/build-Utility-Desktop_Qt_5_7_0_clang_64bit-Debug");
     file.open(QIODevice::WriteOnly);
 
@@ -54,16 +55,17 @@ void BCVEncoder::initializeBCVEncoder(){
     header.version = (uint32_t)195;
     header.width = (uint16_t)640;
     header.height = (uint16_t)480;
-    header.fps = 300.1f;
+    header.fps = 300.1;
     header.pix_fmt = (uint32_t)1; //ARGB8888
     header.total_frames = (uint16_t)0;
     header.date_year = (int16_t)year;
     header.date_mmdd = ( mon << 8 ) + day;
     header.date_hhmin = ( hour << 8 ) + min;
     header.date_sec = (int16_t) sec;
+    memcpy( header.cam_name, "FaceTimeHD\0", sizeof(uint8_t)*16 );
     header.nir_baseline = (uint8_t)'c';
     header.nir_channels = (uint8_t)'c';
-    memset( header.nir_lambda, '0', sizeof(uint8_t) * 214 ); // 214 = 256 - 42 (meaningful information )
+    memset( header.nir_lambda, '0', sizeof(uint8_t) * 198 ); // 198 = 256 - 58 (meaningful information )
 
     //write dataStructure to file
     out.writeRawData((const char*)header.magic, 8 );
@@ -77,11 +79,13 @@ void BCVEncoder::initializeBCVEncoder(){
     out << header.date_mmdd;
     out << header.date_hhmin;
     out << header.date_sec;
+    out.writeRawData((const char*)header.cam_name, 16 );
     out << header.nir_baseline;
     out << header.nir_channels;
-    out.writeRawData((const char*)header.nir_lambda, 214 );
+    printf("tmp size of file = %lld\n" , file.size() );
+    out.writeRawData((const char*)header.nir_lambda, 198 );
 
-    printf("size of file = %lu\n" , file.size() );
+    printf("size of file = %lld\n" , file.size() );
 
 
 
@@ -100,6 +104,7 @@ void BCVEncoder::initializeBCVEncoder(){
 //    cout << "month = " << (header.date_mmdd >> 8 );
 //    cout << "day = " << (header.date_mmdd & 0xff );
 //    cout << "debug : nir_lambda = " << *(header.nir_lambda) << endl;
+    cout << "cam_name = "<< header.cam_name << endl;
 
 }
 
