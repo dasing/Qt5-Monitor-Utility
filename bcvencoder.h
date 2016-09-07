@@ -12,15 +12,22 @@ class BCVEncoder: public QAbstractVideoFilter
 public:
     BCVEncoder();
     QVideoFilterRunnable *createFilterRunnable();
+    void updateTotalFrames();
     Q_INVOKABLE void initializeBCVEncoder();
     Q_INVOKABLE void resetBCVEncoder();
-
-    int count;
     QFile file;
+
+
+    friend class bcvencoderrunable;
 
 
 signals:
     void finished();
+
+private:
+    int m_totalFrame;
+
+
 
 
 };

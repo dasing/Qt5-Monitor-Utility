@@ -1,6 +1,7 @@
 #include "bcvencoder.h"
 #include "bcvencoderrunable.h"
 #include "bcv_file.h"
+#include <fstream>
 #include <QAbstractVideoFilter>
 #include <iostream>
 #include <QByteArray>
@@ -11,8 +12,8 @@ using namespace std;
 
 BCVEncoder::BCVEncoder()
 {
-    printf("construct bcvencoder\n");
-    count = 0;
+
+    m_totalFrame = 0;
 }
 
 QVideoFilterRunnable* BCVEncoder::createFilterRunnable(){
@@ -43,11 +44,13 @@ void BCVEncoder::initializeBCVEncoder(){
     //WARNING: if application is not run on Qt creator, file storing path may change and thus cause open error
     QDir::setCurrent("/Users/Dasing/Desktop/build-Utility-Desktop_Qt_5_7_0_clang_64bit-Debug");
     file.open(QIODevice::WriteOnly);
+    file.setTextModeEnabled(false);
+
 
     QDataStream out(&file);
 
     //Initialize Parameters
-    count = 0; //parameter which notes for Image number stored in bcvfile
+    m_totalFrame = 0; //parameter which notes for Image number stored in bcvfile
 
     _bcv_video_header header;
 
@@ -72,7 +75,9 @@ void BCVEncoder::initializeBCVEncoder(){
     out << header.version;
     out << header.width;
     out << header.height;
+    cout << "curr_fileSize = " << file.size() << endl;
     out << header.fps;
+    cout << "curr_fileSize = " << file.size() << endl;
     out << header.pix_fmt;
     out << header.total_frames;
     out << header.date_year;
@@ -82,11 +87,8 @@ void BCVEncoder::initializeBCVEncoder(){
     out.writeRawData((const char*)header.cam_name, 16 );
     out << header.nir_baseline;
     out << header.nir_channels;
-    printf("tmp size of file = %lld\n" , file.size() );
     out.writeRawData((const char*)header.nir_lambda, 198 );
-
     printf("size of file = %lld\n" , file.size() );
-
 
 
 //Debug
@@ -104,20 +106,45 @@ void BCVEncoder::initializeBCVEncoder(){
 //    cout << "month = " << (header.date_mmdd >> 8 );
 //    cout << "day = " << (header.date_mmdd & 0xff );
 //    cout << "debug : nir_lambda = " << *(header.nir_lambda) << endl;
-    cout << "cam_name = "<< header.cam_name << endl;
+//    cout << "cam_name = "<< header.cam_name << endl;
+
+}
+
+void int2char( int value, char buffer[4] ){
+
+    uint32_t val = (uint32_t)value;
+    cout << "val = " << val << endl;
+    for( int i=3; i>=0; i-- ){
+        buffer[i] = ( val >>  ( 8*i ) ) & 0xFF;
+    }
+
+}
+
+void BCVEncoder::updateTotalFrames(){
+
+    //update totalFrames
+
+    char buffer[4];
+
+    fstream outfile( file.fileName().toStdString() );
+    outfile.seekp ( 28, ios_base::beg ); // totalFrames is on 28 bytes
+    int2char( m_totalFrame, buffer );
+    outfile.write ( (const char*)buffer ,4);
+    outfile.close();
 
 }
 
 void BCVEncoder::resetBCVEncoder(){
 
-    //TO DO: restore totalFrames
-
-
-    //reset parameter and close file
-    count = 0;
-    if ( !file.flush() )
-        printf("flush error\n");
 
     file.close();
+
+    updateTotalFrames();
+
+    //reset parameter
+    m_totalFrame = 0;
+
+    if ( !file.flush() )
+        printf("flush error\n");
 }
 

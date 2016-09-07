@@ -84,6 +84,24 @@ Item {
                 fileInfo.channel = infos[14]
 
             }
+
+            onSendFrameHeaderInfo:{
+                console.log("receive frame header" + frameHeaderStruct )
+                var infos = frameHeaderStruct.split(";")
+                var index = infos[0]
+                var hr_bpm = infos[1]
+                var rr_bpm = infos[2]
+                var interval = infos[3]
+                var lambda = infos[4]
+                var eb_ts = infos[5]
+
+//                console.log("index = " + index )
+//                console.log("hr_bpm = " + hr_bpm )
+//                console.log("rr_bpm = " + rr_bpm )
+//                console.log("lambda = " + lambda )
+//                console.log("interval = " + interval )
+//                console.log("eb_ts = " + eb_ts )
+            }
         }
 
         Rectangle{

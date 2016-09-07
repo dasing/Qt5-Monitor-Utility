@@ -10,6 +10,7 @@ Item {
     property alias bcvEncoder: bcvencoder
 
 
+
     Rectangle{
 
         //background of CameraVideoOutput
@@ -53,6 +54,11 @@ Item {
            bcvencoder.resetBCVEncoder()
        }
    }
+
+//   Text{
+//       id: frameNumber
+//       text: bcvencoder.totalFrame
+//   }
 
 //    ChartSpace{
 

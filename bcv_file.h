@@ -63,7 +63,7 @@ typedef struct _bcv_video_frame{
 	//v0.70 the used wavelengths like 730nm, 850nm, 940nm, unit is "nm"
 	uint16_t lamda;		//wavelength : unit nm
 	int8_t eb_ts;		//time stamp is embedded in the first 32bits of the frame
-	uint8_t *reserved;
+    uint8_t reserved[17]; // 17 = 32 - 15
 } BCV_VIDEO_FRAME_HEADER, *PBCV_VIDEO_FRAME_HEADER;
 #pragma pack(pop)	/* restore original alignment from stack */
 
