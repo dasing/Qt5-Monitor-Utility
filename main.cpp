@@ -17,7 +17,7 @@ int main(int argc, char *argv[])
 {
     QApplication app(argc, argv);
 
-    QQmlApplicationEngine engine;
+//    QQmlApplicationEngine engine;
 
     qmlRegisterType<FrameFilter>("qmlvideofilter", 1, 0, "FrameFilter" );
     qmlRegisterType<AnalyzeResult>("qmlvideofilter", 1, 0, "AnalyzeResult");
@@ -25,12 +25,10 @@ int main(int argc, char *argv[])
     qmlRegisterType<BCVDecoder>("qmlbcvdecoder", 1, 0, "BCVDecoder");
 
     ImageProvider* ImgProvider = new ImageProvider();
-    engine.rootContext()->setContextProperty("ProviderImg", ImgProvider );
-    engine.addImageProvider( "provider", ImgProvider );
-    engine.load(QUrl(QStringLiteral("qrc:/main.qml")));
-
     QQuickView view;
     view.setSource(QUrl("qrc:/main.qml"));
+    view.engine()->addImageProvider( QLatin1String("provider"), ImgProvider );
+    view.engine()->rootContext()->setContextProperty("ProviderImg", ImgProvider );
     view.show();
 
     return app.exec();

@@ -8,7 +8,7 @@ import qmlbcvdecoder 1.0
 Item {
 
         width: 1000
-        height: 600
+        height: 700
         SystemPalette { id: palette }
         clip: true
 
@@ -24,124 +24,122 @@ Item {
             selectedNameFilter: "(*.bcv)"
 
             onFileUrlChanged: {
-                console.log("here!")
                 decoder.decodeFile(fileUrl)
 
             }
         }
 
 
-           ColumnLayout {
+       ColumnLayout {
 
-                   id: fileChooser
-                   anchors {
-                       left: parent.left
-                       right: parent.right
-                       top: parent.top
-                       leftMargin: 12
+               id: fileChooser
+               anchors {
+                   left: parent.left
+                   right: parent.right
+                   top: parent.top
+                   leftMargin: 12
+               }
+
+               spacing: 8
+               //Item { Layout.preferredHeight: 4 } // padding
+
+               Label {
+                    text: "<b>chosen files:</b> " + fileDialog.fileUrls
+               }
+
+               Button {
+                   id: button
+
+                   text: "Find"
+                   onClicked: {
+                       fileDialog.visible = true
+                       fileDialog.open()
                    }
-
-                   spacing: 8
-                   //Item { Layout.preferredHeight: 4 } // padding
-
-                   Label {
-                        text: "<b>chosen files:</b> " + fileDialog.fileUrls
-                   }
-
-                   Button {
-                       id: button
-
-                       text: "Find"
-                       onClicked: {
-                           fileDialog.visible = true
-                           fileDialog.open()
-                       }
-                   }
+               }
 
 
-                   Rectangle{
+               Rectangle{
 
-                       id: fileInfo
-                       border.color: "#c8cccf"
-                       radius: 8
+                   id: fileInfo
+                   border.color: "#c8cccf"
+                   radius: 8
 
-                       property int version: 0
-                       property int videoWidth: 0
-                       property int videoHeight: 0
-                       property double fps: 0
-                       property string pixFormat: ""
-                       property int totalFrame: 0
-                       property int year: 0
-                       property int mon: 0
-                       property int day: 0
-                       property int hour: 0
-                       property int min: 0
-                       property int sec: 0
-                       property string camName: ""
-                       property string nirBaseline: ""
-                       property string channel: ""
-                       width: parent.width
-                       height: 250
+                   property int version: 0
+                   property int videoWidth: 0
+                   property int videoHeight: 0
+                   property double fps: 0
+                   property string pixFormat: ""
+                   property int totalFrame: 0
+                   property int year: 0
+                   property int mon: 0
+                   property int day: 0
+                   property int hour: 0
+                   property int min: 0
+                   property int sec: 0
+                   property string camName: ""
+                   property string nirBaseline: ""
+                   property string channel: ""
+                   width: parent.width
+                   height: 220
 
 
-                       ColumnLayout{
+                   ColumnLayout{
 
-                           anchors.top: parent.top
-                           anchors.left: parent.left
-                           anchors.topMargin: 12
-                           anchors.leftMargin: 12
-                           spacing: 2
-                           //anchors.fill: parent
+                       anchors.top: parent.top
+                       anchors.left: parent.left
+                       anchors.topMargin: 12
+                       anchors.leftMargin: 12
+                       spacing: 2
 
-                           Label{
-                               text: "File Information: "
-
-                           }
-
-                           Label{
-                               text: "Version " + fileInfo.version
-                           }
-
-                           Label{
-                               text: "Width " + fileInfo.videoWidth
-                           }
-
-                           Label{
-                               text: "Height " + fileInfo.videoHeight
-                           }
-
-                           Label{
-                               text: "Fps " + fileInfo.fps
-                           }
-
-                           Label{
-                               text: "Pixel Format " + fileInfo.pixFormat
-                           }
-
-                           Label{
-                               text: "Total Frames " + fileInfo.totalFrame
-                           }
-
-                           Label{
-                               text: "Time " + fileInfo.year + "/" + fileInfo.mon + "/" + fileInfo.day + " " + fileInfo.hour + ":" + fileInfo.min + ":" + fileInfo.sec
-                           }
-
-                           Label{
-                               text: "Camera Name " + fileInfo.camName
-                           }
-
-                           Label{
-                               text: "Nir Baseline " + fileInfo.nirBaseline
-                           }
-
-                           Label{
-                               text: "Nir Channels " + fileInfo.channel
-                           }
+                       Label{
+                           text: "File Information: "
 
                        }
 
+                       Label{
+                           text: "Version " + fileInfo.version
+                       }
+
+                       Label{
+                           text: "Width " + fileInfo.videoWidth
+                       }
+
+                       Label{
+                           text: "Height " + fileInfo.videoHeight
+                       }
+
+                       Label{
+                           text: "Fps " + fileInfo.fps
+                       }
+
+                       Label{
+                           text: "Pixel Format " + fileInfo.pixFormat
+                       }
+
+                       Label{
+                           text: "Total Frames " + fileInfo.totalFrame
+                       }
+
+                       Label{
+                           text: "Time " + fileInfo.year + "/" + fileInfo.mon + "/" + fileInfo.day + " " + fileInfo.hour + ":" + fileInfo.min + ":" + fileInfo.sec
+                       }
+
+                       Label{
+                           text: "Camera Name " + fileInfo.camName
+                       }
+
+                       Label{
+                           text: "Nir Baseline " + fileInfo.nirBaseline
+                       }
+
+                       Label{
+                           text: "Nir Channels " + fileInfo.channel
+                       }
+
                    }
-          }
+
+               }
+        }
 
 
         BCVDecoder{
@@ -185,6 +183,10 @@ Item {
 //                console.log("eb_ts = " + eb_ts )
                   photoGallery.frameModel.append( { "index": index, "hr_bpm": hr_bpm, "rr_bpm": rr_bpm, "interval": interval, "lambda": lambda, "eb_ts": eb_ts } )
             }
+
+            onSendImage: {
+                ProviderImg.carryImage( image );
+            }
         }
 
 
@@ -201,16 +203,8 @@ Item {
             Gallery{
                 id: photoGallery
 
-
-
             }
 
-
-
-
         }
-
-
-
 
 }

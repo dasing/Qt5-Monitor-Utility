@@ -11,10 +11,15 @@ class ImageProvider : public QObject, public QQuickImageProvider
 public:
     ImageProvider();
     QImage requestImage(const QString &id, QSize *size, const QSize &requestedSize);
+
+public slots:
     void carryImage( QImage image );
 
+    friend class BCVDecoder;
+
 private:
-    QImage img;
+    QList<QImage> imgList;
+
 };
 
 #endif // IMAGEPROVIDER_H

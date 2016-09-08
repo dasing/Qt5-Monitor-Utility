@@ -8,17 +8,12 @@ ImageProvider::ImageProvider(): QQuickImageProvider(QQuickImageProvider::Image)
 
 QImage ImageProvider::requestImage(const QString &id, QSize *size, const QSize &requestedSize){
 
-    if( img.isNull() ){
-        qDebug() << "image transport error";
-    }
-
-    return img;
+    return imgList.at( id.toInt() );
 }
 
 void ImageProvider::carryImage(QImage image){
 
-    if( image.isNull() )
-        qDebug() << "in carry Image, image transport error";
+    imgList.append(image);
 
-    img = image;
 }
+

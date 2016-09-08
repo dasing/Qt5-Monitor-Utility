@@ -4,7 +4,7 @@ Item {
 
     id: root
     width: 1400
-    height: 720
+    height: 800
     state: "ROI"
 
     //menu bar

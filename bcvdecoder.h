@@ -3,6 +3,7 @@
 #include <QObject>
 #include <QImage>
 #include "bcv_file.h"
+#include "imageprovider.h"
 
 using namespace std;
 
@@ -24,6 +25,7 @@ signals:
     void sendImage( QImage image );
 
 private:
+    ImageProvider imgProvider;
     int totalFrame;
     int width;
     int height;

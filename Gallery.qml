@@ -1,6 +1,7 @@
 import QtQuick 2.0
 import QtQuick.Controls 1.4
 import QtQuick.Controls.Styles 1.4
+import QtQuick.Layouts 1.1
 
 ScrollView {
 
@@ -19,14 +20,6 @@ ScrollView {
 
         ListModel{
             id: frameModel
-            ListElement{ index: "0"
-                         hr_bpm: "0"
-                         rr_bpm: "0"
-                         interval: "0"
-                         lambda: "0"
-                         eb_ts: "0"
-            }
-
         }
 
         Component{
@@ -34,16 +27,29 @@ ScrollView {
             Rectangle{
 
                 width: parent.width
-                height: 100
+                height: 500
 
-                Column{
-                    Text{ text: ' index = ' + index }
-                    Text{ text: ' hr_bpm = ' + hr_bpm }
-                    Text{ text: ' rr_bpm = ' + rr_bpm }
-                    Text{ text: ' interval = ' + interval }
-                    Text{ text: ' lambda = ' + lambda }
-                    Text{ text: ' eb_ts = ' + eb_ts }
+                RowLayout{
+
+                    anchors.top: parent.top
+                    anchors.topMargin: 10
+                    anchors.left: parent.left
+                    anchors.leftMargin: 10
+                    spacing: 50
+
+                    Column{
+                        Text{ text: ' index = ' + index }
+                        Text{ text: ' hr_bpm = ' + hr_bpm }
+                        Text{ text: ' rr_bpm = ' + rr_bpm }
+                        Text{ text: ' interval = ' + interval }
+                        Text{ text: ' lambda = ' + lambda }
+                        Text{ text: ' eb_ts = ' + eb_ts }
+                    }
+
+                    Image{ source: "image://provider/" + index.toString() }
+
                 }
+
             }
         }
 
