@@ -12,7 +12,8 @@ SOURCES += main.cpp \
     selectionarealist.cpp \
     bcvencoder.cpp \
     bcvencoderrunable.cpp \
-    bcvdecoder.cpp
+    bcvdecoder.cpp \
+    imageprovider.cpp
 
 RESOURCES += qml.qrc
 
@@ -31,7 +32,8 @@ HEADERS += \
     bcvencoder.h \
     bcvencoderrunable.h \
     bcv_file.h \
-    bcvdecoder.h
+    bcvdecoder.h \
+    imageprovider.h
 
 #win32:CONFIG(release, debug|release): LIBS += -L$$PWD/../../../usr/local/Cellar/opencv/2.4.13/lib/release/ -lopencv_core.2.4.13
 #else:win32:CONFIG(debug, debug|release): LIBS += -L$$PWD/../../../usr/local/Cellar/opencv/2.4.13/lib/debug/ -lopencv_core.2.4.13

@@ -30,13 +30,18 @@ Rectangle{
 
             id: camera
             //captureMode: Camera.CaptureVideo
-            viewfinder.resolution: Qt.size( 640, 480 );
+
             property int resolutionWidth: viewfinder.resolution.width
 
+            Component.onCompleted:  viewfinder.resolution = Qt.size( 640, 480 );
             onDeviceIdChanged: {
 
                 viewfinder.resolution = Qt.size( 640, 480 )
                 console.log("deviceID change to " + deviceId )
+            }
+
+            onResolutionWidthChanged: {
+                viewfinder.resolution = Qt.size( 640, 480 )
             }
 
         }
