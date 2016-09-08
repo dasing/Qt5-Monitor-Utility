@@ -1,6 +1,7 @@
 #include "bcvencoder.h"
 #include "bcvencoderrunable.h"
 #include "bcv_file.h"
+#include "time.h"
 #include <fstream>
 #include <QAbstractVideoFilter>
 #include <iostream>

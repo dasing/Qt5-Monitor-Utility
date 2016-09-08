@@ -1,5 +1,6 @@
 #include "framefilterrunnable.h"
 #include "analyzeresult.h"
+#include "time.h"
 #include <QQmlApplicationEngine>
 #include <QQmlContext>
 #include<QAbstractVideoFilter>
