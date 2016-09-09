@@ -181,7 +181,7 @@ Item {
 //                console.log("lambda = " + lambda )
 //                console.log("interval = " + interval )
 //                console.log("eb_ts = " + eb_ts )
-                  //photoGallery.frameModel.append( { "index": index, "hr_bpm": hr_bpm, "rr_bpm": rr_bpm, "interval": interval, "lambda": lambda, "eb_ts": eb_ts } )
+                  photoGallery.frameInfoModel.append( { "index": index, "hr_bpm": hr_bpm, "rr_bpm": rr_bpm, "interval": interval, "lambda": lambda, "eb_ts": eb_ts } )
             }
 
             onSendImage: {
@@ -210,6 +210,7 @@ Item {
                 id: photoGallery
                 frameNumber: fileInfo.totalFrame
                 activeFlag: 0
+                fps: fileInfo.fps
             }
 
         }

@@ -221,11 +221,11 @@ QImage BCVDecoder::decodeImage( QDataStream& in, int width, int height, int inde
 
     }
 
-    QString dir =  QDir::currentPath().append( "/output" + QString::number( index ) + ".png" );
+//    QString dir =  QDir::currentPath().append( "/output" + QString::number( index ) + ".png" );
 
-    bool result = img.save( dir );
-    if( !result )
-        printf("file save fail\n");
+//    bool result = img.save( dir );
+//    if( !result )
+//        printf("file save fail\n");
 
     delete[] Y;
     delete[] UV;

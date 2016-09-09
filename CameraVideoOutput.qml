@@ -33,7 +33,12 @@ Rectangle{
 
             property int resolutionWidth: viewfinder.resolution.width
 
-            Component.onCompleted:  viewfinder.resolution = Qt.size( 640, 480 );
+            Component.onCompleted:  {
+                viewfinder.resolution = Qt.size( 640, 480 );
+                viewfinder.minimumFrameRate = 30;
+                console.log("minimum frameRate: " + viewfinder.minimumFrameRate )
+                console.log("maximum frameRate: " + viewfinder.maximumFrameRate )
+            }
             onDeviceIdChanged: {
 
                 viewfinder.resolution = Qt.size( 640, 480 )

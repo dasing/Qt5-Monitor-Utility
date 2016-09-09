@@ -4,9 +4,13 @@ import QtQuick.Controls.Styles 1.4
 import QtQuick.Layouts 1.1
 
 Rectangle{
+
+    property alias frameInfoModel: frameInfoModel
     property int frameNumber: 0
     property int index: 0
     property int activeFlag: 0
+    property double fps: 30.0
+    property double deltaTime: 1/fps;
     color: "cornsilk"
 
     anchors.fill: parent
@@ -15,6 +19,10 @@ Rectangle{
         //activate preview
         img.source = "image://provider/" + index.toString()
 
+    }
+
+    ListModel{
+        id: frameInfoModel
     }
 
 
@@ -26,6 +34,32 @@ Rectangle{
         source: "qrc:/image/BCVPreviewerDefaultImg.png"
     }
 
+    Rectangle{
+
+        id: frameInfo
+        color: "pink"
+        anchors.top: parent.top
+        anchors.left: img.right
+        anchors.leftMargin: 12
+        width: 150
+        height: 200
+
+        Column{
+
+            anchors.fill: parent
+            Text{ text: "Frame Info: "}
+            Text{ text: ' index = ' + frameInfoModel.get(index).index }
+            Text{ text: ' hr_bpm = ' + frameInfoModel.get(index).hr_bpm }
+            Text{ text: ' rr_bpm = ' + frameInfoModel.get(index).rr_bpm }
+            Text{ text: ' interval = ' + frameInfoModel.get(index).interval }
+            Text{ text: ' lambda = ' + frameInfoModel.get(index).lambda }
+            Text{ text: ' eb_ts = ' + frameInfoModel.get(index).eb_ts }
+        }
+
+    }
+
+
+
     Slider{
         id: slider
         anchors.top: img.bottom
@@ -36,7 +70,6 @@ Rectangle{
         stepSize: 1.0
         value: 0
 
-
         onValueChanged: {
 
             index = slider.value
@@ -45,6 +78,7 @@ Rectangle{
         }
     }
 
+    // ------ Control Space ------ //
     RowLayout{
 
         anchors.top: slider.bottom
@@ -69,10 +103,16 @@ Rectangle{
 
             }
 
-            onClicked: PropertyAnimation { target: slider; property: "value"; to: frameNumber }
+            PropertyAnimation { id: playAnimation; target: slider; property: "value"; to: frameNumber  }
+
+            onClicked: {
+//                console.log("deltaTime = " + deltaTime )
+//                console.log("duration = " + (frameNumber-1-slider.value)*deltaTime*1000 )
+                playAnimation.duration = (frameNumber-1-slider.value)*deltaTime*1000
+                playAnimation.start()
+            }
 
         }
-
 
 
         Button{
@@ -92,6 +132,8 @@ Rectangle{
                 }
 
             }
+
+            onClicked: playAnimation.stop()
         }
 
         Button{
@@ -112,6 +154,10 @@ Rectangle{
 
             }
 
+            onClicked: {
+                slider.value += 1
+            }
+
         }
 
         Button{
@@ -130,14 +176,16 @@ Rectangle{
                 }
 
             }
+
+            onClicked: {
+                slider.value -= 1
+            }
         }
 
 
     }
 
-//    PropertyAnimation{
 
-//    }
 }
 
 //ScrollView {
