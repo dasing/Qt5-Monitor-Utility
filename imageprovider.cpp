@@ -17,3 +17,7 @@ void ImageProvider::carryImage(QImage image){
 
 }
 
+void ImageProvider::reset(){
+    imgList.clear();
+}
+

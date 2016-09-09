@@ -24,6 +24,8 @@ Item {
             selectedNameFilter: "(*.bcv)"
 
             onFileUrlChanged: {
+                photoGallery.state = "loading"
+                resetPreviewer()
                 decoder.decodeFile(fileUrl)
 
             }
@@ -51,6 +53,8 @@ Item {
 
                    text: "Find"
                    onClicked: {
+
+
                        fileDialog.visible = true
                        fileDialog.open()
                    }
@@ -190,7 +194,7 @@ Item {
 
             onFinish:{
 
-                photoGallery.activeFlag = 1
+                photoGallery.state = "active"
 
             }
         }
@@ -209,10 +213,18 @@ Item {
             Gallery{
                 id: photoGallery
                 frameNumber: fileInfo.totalFrame
-                activeFlag: 0
+                //activeFlag: 0
                 fps: fileInfo.fps
             }
 
+        }
+
+
+        function resetPreviewer(){
+            ProviderImg.reset();
+            photoGallery.frameInfoModel.clear();
+            photoGallery.index = 0
+            //photoGallery.state = "idle"
         }
 
 }

@@ -8,18 +8,36 @@ Rectangle{
     property alias frameInfoModel: frameInfoModel
     property int frameNumber: 0
     property int index: 0
-    property int activeFlag: 0
+//    property int activeFlag: 0
     property double fps: 30.0
     property double deltaTime: 1/fps;
     color: "cornsilk"
-
     anchors.fill: parent
+    state: "idle"
 
-    onActiveFlagChanged: {
-        //activate preview
-        img.source = "image://provider/" + index.toString()
+    states:[
+        State{
+            name: "loading"
+            PropertyChanges { target: img; source: "qrc:/image/loadingPage.png" }
 
-    }
+        },
+
+        State{
+            name: "active"
+            PropertyChanges{ target: img; source: "image://provider/" + index.toString() }
+        }
+
+    ]
+
+
+
+//    onActiveFlagChanged: {
+//        //activate preview
+//        img.source = "image://provider/" + index.toString()
+
+//    }
+
+
 
     ListModel{
         id: frameInfoModel
@@ -69,6 +87,7 @@ Rectangle{
         maximumValue: frameNumber == 0 ? 0 : frameNumber-1
         stepSize: 1.0
         value: 0
+        width: img.width
 
         onValueChanged: {
 
@@ -85,14 +104,16 @@ Rectangle{
         anchors.left: parent.left
         anchors.leftMargin: 12
 
+        spacing: 20
+
         Button{
             id: play
 
             style: ButtonStyle{
                 background: Rectangle{
 
-                    implicitHeight: 40
-                    implicitWidth: 40
+                    implicitHeight: 50
+                    implicitWidth: 50
                     color: "transparent"
 
                     Image{
@@ -121,8 +142,8 @@ Rectangle{
             style: ButtonStyle{
                 background: Rectangle{
 
-                    implicitHeight: 40
-                    implicitWidth: 40
+                    implicitHeight: 50
+                    implicitWidth: 50
                     color: "transparent"
 
                     Image{
@@ -142,8 +163,8 @@ Rectangle{
             style: ButtonStyle{
                 background: Rectangle{
 
-                    implicitHeight: 40
-                    implicitWidth: 40
+                    implicitHeight: 50
+                    implicitWidth: 50
                     color: "transparent"
 
                     Image{
@@ -165,8 +186,8 @@ Rectangle{
             style: ButtonStyle{
                 background: Rectangle{
 
-                    implicitHeight: 40
-                    implicitWidth: 40
+                    implicitHeight: 50
+                    implicitWidth: 50
                     color: "transparent"
 
                     Image{
@@ -182,9 +203,7 @@ Rectangle{
             }
         }
 
-
     }
-
 
 }
 

@@ -14,8 +14,8 @@ public:
 
 public slots:
     void carryImage( QImage image );
+    void reset();
 
-    friend class BCVDecoder;
 
 private:
     QList<QImage> imgList;
