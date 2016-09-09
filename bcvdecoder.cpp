@@ -262,5 +262,7 @@ void BCVDecoder::decodeFile( QString filePath ){
         emit sendImage( img );
     }
 
+    emit finish();
+
 
 }

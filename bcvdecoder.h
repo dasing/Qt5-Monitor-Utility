@@ -23,6 +23,7 @@ signals:
     void sendVideoHeaderInfo( QString videoHeaderStruct );
     void sendFrameHeaderInfo( QString frameHeaderStruct );
     void sendImage( QImage image );
+    void finish();
 
 private:
     ImageProvider imgProvider;

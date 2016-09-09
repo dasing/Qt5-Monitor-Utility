@@ -8,7 +8,7 @@ import qmlbcvdecoder 1.0
 Item {
 
         width: 1000
-        height: 700
+        height: 800
         SystemPalette { id: palette }
         clip: true
 
@@ -41,7 +41,6 @@ Item {
                }
 
                spacing: 8
-               //Item { Layout.preferredHeight: 4 } // padding
 
                Label {
                     text: "<b>chosen files:</b> " + fileDialog.fileUrls
@@ -60,6 +59,7 @@ Item {
 
                Rectangle{
 
+                   //maybe it can be changed to model
                    id: fileInfo
                    border.color: "#c8cccf"
                    radius: 8
@@ -80,7 +80,7 @@ Item {
                    property string nirBaseline: ""
                    property string channel: ""
                    width: parent.width
-                   height: 220
+                   height: 100
 
 
                    ColumnLayout{
@@ -96,9 +96,9 @@ Item {
 
                        }
 
-                       Label{
-                           text: "Version " + fileInfo.version
-                       }
+//                       Label{
+//                           text: "Version " + fileInfo.version
+//                       }
 
                        Label{
                            text: "Width " + fileInfo.videoWidth
@@ -108,13 +108,13 @@ Item {
                            text: "Height " + fileInfo.videoHeight
                        }
 
-                       Label{
-                           text: "Fps " + fileInfo.fps
-                       }
+//                       Label{
+//                           text: "Fps " + fileInfo.fps
+//                       }
 
-                       Label{
-                           text: "Pixel Format " + fileInfo.pixFormat
-                       }
+//                       Label{
+//                           text: "Pixel Format " + fileInfo.pixFormat
+//                       }
 
                        Label{
                            text: "Total Frames " + fileInfo.totalFrame
@@ -124,17 +124,17 @@ Item {
                            text: "Time " + fileInfo.year + "/" + fileInfo.mon + "/" + fileInfo.day + " " + fileInfo.hour + ":" + fileInfo.min + ":" + fileInfo.sec
                        }
 
-                       Label{
-                           text: "Camera Name " + fileInfo.camName
-                       }
+//                       Label{
+//                           text: "Camera Name " + fileInfo.camName
+//                       }
 
-                       Label{
-                           text: "Nir Baseline " + fileInfo.nirBaseline
-                       }
+//                       Label{
+//                           text: "Nir Baseline " + fileInfo.nirBaseline
+//                       }
 
-                       Label{
-                           text: "Nir Channels " + fileInfo.channel
-                       }
+//                       Label{
+//                           text: "Nir Channels " + fileInfo.channel
+//                       }
 
                    }
 
@@ -181,11 +181,17 @@ Item {
 //                console.log("lambda = " + lambda )
 //                console.log("interval = " + interval )
 //                console.log("eb_ts = " + eb_ts )
-                  photoGallery.frameModel.append( { "index": index, "hr_bpm": hr_bpm, "rr_bpm": rr_bpm, "interval": interval, "lambda": lambda, "eb_ts": eb_ts } )
+                  //photoGallery.frameModel.append( { "index": index, "hr_bpm": hr_bpm, "rr_bpm": rr_bpm, "interval": interval, "lambda": lambda, "eb_ts": eb_ts } )
             }
 
             onSendImage: {
                 ProviderImg.carryImage( image );
+            }
+
+            onFinish:{
+
+                photoGallery.activeFlag = 1
+
             }
         }
 
@@ -194,7 +200,7 @@ Item {
 
             id: fileScrollView
             anchors.top: fileChooser.bottom
-            anchors.topMargin: 30
+            //anchors.topMargin: 30
             anchors.bottom: parent.bottom
             anchors.left: parent.left
             anchors.leftMargin: 12
@@ -202,7 +208,8 @@ Item {
 
             Gallery{
                 id: photoGallery
-
+                frameNumber: fileInfo.totalFrame
+                activeFlag: 0
             }
 
         }

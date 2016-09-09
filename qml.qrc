@@ -40,5 +40,10 @@
         <file>image/loadFile_white.png</file>
         <file>CameraVideoOutput.qml</file>
         <file>Gallery.qml</file>
+        <file>image/BCVPreviewerDefaultImg.png</file>
+        <file>image/backward.png</file>
+        <file>image/forward.png</file>
+        <file>image/play.png</file>
+        <file>image/stop.png</file>
     </qresource>
 </RCC>
