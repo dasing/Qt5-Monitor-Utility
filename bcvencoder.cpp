@@ -246,12 +246,30 @@ void BCVEncoder::writeFiles(){
     }
 }
 
+void BCVEncoder::resetMemory(){
+
+    //reset YList
+    for( int i=0; i<YList.length(); i++ ){
+        delete YList.at(i);
+    }
+
+    YList.clear();
+
+    //reset UVList
+    for( int i=0; i<UVList.length(); i++ ){
+        delete UVList.at(i);
+    }
+
+    UVList.clear();
+}
+
 void BCVEncoder::resetBCVEncoder(){
 
 
     qDebug() << "frame Number = " << m_totalFrame;
     writeFiles();
     file.close();
+    resetMemory();
 
     updateTotalFrames();
 

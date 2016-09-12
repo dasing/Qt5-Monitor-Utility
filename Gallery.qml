@@ -8,7 +8,6 @@ Rectangle{
     property alias frameInfoModel: frameInfoModel
     property int frameNumber: 0
     property int index: 0
-//    property int activeFlag: 0
     property double fps: 30.0
     property double deltaTime: 1/fps;
     color: "cornsilk"
@@ -28,16 +27,6 @@ Rectangle{
         }
 
     ]
-
-
-
-//    onActiveFlagChanged: {
-//        //activate preview
-//        img.source = "image://provider/" + index.toString()
-
-//    }
-
-
 
     ListModel{
         id: frameInfoModel

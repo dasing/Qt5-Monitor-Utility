@@ -15,6 +15,7 @@ public:
     QVideoFilterRunnable *createFilterRunnable();
     void updateTotalFrames();
     void writeFiles();
+    void resetMemory();
     Q_INVOKABLE void initializeBCVEncoder();
     Q_INVOKABLE void resetBCVEncoder();
     QFile file;

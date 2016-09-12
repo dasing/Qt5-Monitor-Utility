@@ -7,21 +7,19 @@
 class FrameFilter: public QAbstractVideoFilter{
 
     Q_OBJECT
-    Q_PROPERTY( int x_start READ x_start WRITE setX_start )
     Q_PROPERTY( int updateFlag READ updateFlag WRITE setUpdateFlag )
     Q_PROPERTY( QList<QString> rectList READ rectList WRITE setRectList )
 
 public:
     FrameFilter();
     QVideoFilterRunnable *createFilterRunnable();
-    int x_start() const { return m_xStart; }
+    //int x_start() const { return m_xStart; }
     int updateFlag() const { return m_updateFlag; }
     void setRectList( QList<QString> newString );
     void updateAreaList();
     void showAreaList();
     QList<QString> rectList() { return m_rectList; }
     Q_INVOKABLE void updateAreaList( QList<SelectionArea*> newList );
-    Q_INVOKABLE void setX_start( int newValue ) { qDebug() << "in setX_start" ; m_xStart = newValue; }
     Q_INVOKABLE void setUpdateFlag( int newValue ) { m_updateFlag = newValue; }
     Q_INVOKABLE void listRectList();
     Q_INVOKABLE void addRect( QString newString );

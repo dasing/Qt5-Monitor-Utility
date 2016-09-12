@@ -1,6 +1,6 @@
 import QtQuick 2.2
 import QtQuick.Controls 1.2
-import QtQuick.Dialogs 1.1
+import QtQuick.Dialogs 1.2
 import QtQuick.Layouts 1.1
 import QtQuick.Window 2.0
 import qmlbcvdecoder 1.0
@@ -48,101 +48,142 @@ Item {
                     text: "<b>chosen files:</b> " + fileDialog.fileUrls
                }
 
-               Button {
-                   id: button
+               RowLayout{
 
-                   text: "Find"
-                   onClicked: {
+                   Button {
+                       id: button
 
+                       text: "Choose File"
+                       onClicked: {
+                           fileDialog.visible = true
+                           fileDialog.open()
+                           detailButton.visible = true
 
-                       fileDialog.visible = true
-                       fileDialog.open()
+                       }
                    }
-               }
 
+                   Button {
+                       id: detailButton
+                       visible: false
 
-               Rectangle{
-
-                   //maybe it can be changed to model
-                   id: fileInfo
-                   border.color: "#c8cccf"
-                   radius: 8
-
-                   property int version: 0
-                   property int videoWidth: 0
-                   property int videoHeight: 0
-                   property double fps: 0
-                   property string pixFormat: ""
-                   property int totalFrame: 0
-                   property int year: 0
-                   property int mon: 0
-                   property int day: 0
-                   property int hour: 0
-                   property int min: 0
-                   property int sec: 0
-                   property string camName: ""
-                   property string nirBaseline: ""
-                   property string channel: ""
-                   width: parent.width
-                   height: 100
-
-
-                   ColumnLayout{
-
-                       anchors.top: parent.top
-                       anchors.left: parent.left
-                       anchors.topMargin: 12
-                       anchors.leftMargin: 12
-                       spacing: 2
-
-                       Label{
-                           text: "File Information: "
-
+                       text: "File Detail"
+                       onClicked: {
+                           fileInfoDialog.visible = true
+                           fileInfoDialog.open()
                        }
-
-//                       Label{
-//                           text: "Version " + fileInfo.version
-//                       }
-
-                       Label{
-                           text: "Width " + fileInfo.videoWidth
-                       }
-
-                       Label{
-                           text: "Height " + fileInfo.videoHeight
-                       }
-
-//                       Label{
-//                           text: "Fps " + fileInfo.fps
-//                       }
-
-//                       Label{
-//                           text: "Pixel Format " + fileInfo.pixFormat
-//                       }
-
-                       Label{
-                           text: "Total Frames " + fileInfo.totalFrame
-                       }
-
-                       Label{
-                           text: "Time " + fileInfo.year + "/" + fileInfo.mon + "/" + fileInfo.day + " " + fileInfo.hour + ":" + fileInfo.min + ":" + fileInfo.sec
-                       }
-
-//                       Label{
-//                           text: "Camera Name " + fileInfo.camName
-//                       }
-
-//                       Label{
-//                           text: "Nir Baseline " + fileInfo.nirBaseline
-//                       }
-
-//                       Label{
-//                           text: "Nir Channels " + fileInfo.channel
-//                       }
-
                    }
 
                }
+
+
+
+               Dialog{
+
+                   id: fileInfoDialog
+                   visible: false
+                   modality: Qt.WindowModal
+                   title: "BCV file information"
+                   width: 350
+                   height: 250
+
+                   contentItem: Rectangle{
+
+
+                       id: fileInfo
+                       border.color: "#c8cccf"
+                       radius: 8
+                       anchors.fill: parent
+
+
+                       property int version: 0
+                       property int videoWidth: 0
+                       property int videoHeight: 0
+                       property double fps: 0
+                       property string pixFormat: ""
+                       property int totalFrame: 0
+                       property int year: 0
+                       property int mon: 0
+                       property int day: 0
+                       property int hour: 0
+                       property int min: 0
+                       property int sec: 0
+                       property string camName: ""
+                       property string nirBaseline: ""
+                       property string channel: ""
+
+
+
+                       ColumnLayout{
+
+                           anchors.top: parent.top
+                           anchors.left: parent.left
+                           anchors.topMargin: 12
+                           anchors.leftMargin: 12
+                           spacing: 2
+
+                           Label{
+                               font.bold: true
+                               text: "File Information"
+
+                           }
+
+                           Label{
+                               text: "Version " + fileInfo.version
+                           }
+
+                           Label{
+                               text: "Width " + fileInfo.videoWidth
+                           }
+
+                           Label{
+                               text: "Height " + fileInfo.videoHeight
+                           }
+
+                           Label{
+                               text: "Fps " + fileInfo.fps
+                           }
+
+                           Label{
+                               text: "Pixel Format " + fileInfo.pixFormat
+                           }
+
+                           Label{
+                               text: "Total Frames " + fileInfo.totalFrame
+                           }
+
+                           Label{
+                               text: "Time " + fileInfo.year + "/" + fileInfo.mon + "/" + fileInfo.day + " " + fileInfo.hour + ":" + fileInfo.min + ":" + fileInfo.sec
+                           }
+
+                           Label{
+                               text: "Camera Name " + fileInfo.camName
+                           }
+
+                           Label{
+                               text: "Nir Baseline " + fileInfo.nirBaseline
+                           }
+
+                           Label{
+                               text: "Nir Channels " + fileInfo.channel
+                           }
+
+                           Button{
+                               text:"Close"
+                               onClicked: {
+                                   fileInfoDialog.visible = false
+                                   fileInfoDialog.close()
+                               }
+                           }
+
+                       }
+
+                   }
+
+               }
+
+
+
+
         }
 
 
@@ -204,7 +245,7 @@ Item {
 
             id: fileScrollView
             anchors.top: fileChooser.bottom
-            //anchors.topMargin: 30
+            anchors.topMargin: 30
             anchors.bottom: parent.bottom
             anchors.left: parent.left
             anchors.leftMargin: 12
@@ -213,7 +254,6 @@ Item {
             Gallery{
                 id: photoGallery
                 frameNumber: fileInfo.totalFrame
-                //activeFlag: 0
                 fps: fileInfo.fps
             }
 
@@ -224,7 +264,6 @@ Item {
             ProviderImg.reset();
             photoGallery.frameInfoModel.clear();
             photoGallery.index = 0
-            //photoGallery.state = "idle"
         }
 
 }
